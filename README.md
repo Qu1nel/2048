@@ -17,6 +17,7 @@ Also used SQLite for the database of players and their results
 |  Backspace | Cancels the action |
 | Escape | Leaves the game or cancels the action |
 | Enter | Confirms action |
+
 Mouse swipes are also available within the game area. At least 30 pixels
 ***
 ### The project consists of 3 .py files
