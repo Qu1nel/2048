@@ -1,0 +1,5 @@
+/.idea
+/venv
+/__pycache__
+data.txt
+2048.sqlite
