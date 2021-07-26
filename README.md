@@ -1,8 +1,10 @@
-# 2048-Game Pytho
+# 2048-Game Python
 First project after 2.5 months of learning Python
 
 Game 2048 written in Python, pygame module. 
 Also used SQLite for the database of players and their results
+
+Works on python version 3.9+
 ***
 ### Controls & Keys
 | Key | Move |
