@@ -327,7 +327,7 @@ def get_const_4_cell(value: int, gen_font: str) -> tuple[int, object]:
                 size = 25
                 font = pygame.font.Font(gen_font, size)
                 if value >= 1048576:
-                    return 'АХУЕЛ?!', font
+                    return 'WTF?!', font
                 return value, font
             return value, font
         return value, font
