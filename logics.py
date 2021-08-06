@@ -1,6 +1,6 @@
-from random import random
 import pygame
 import copy
+from random import random
 
 __all__ = [
     'Point',

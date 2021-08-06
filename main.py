@@ -1,11 +1,12 @@
-from database import get_best, insert_result
-from random import shuffle, randint
-from logics import *
-import pygame
 import copy
 import json
 import sys
 import os
+import pygame
+from database import get_best, insert_result
+from random import shuffle, randint
+from logics import *
+
 
 
 def render_screen(scr: int, delta: int = 0) -> None:

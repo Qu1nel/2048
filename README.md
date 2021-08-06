@@ -35,13 +35,12 @@ Mouse swipes are also available within the game area. At least 30 pixels
 >Renders the window, updating it
 
 Very mediocre architecture of the game, due to the lack of planning of the game and its components, as well as improvisation.
-I wanted to apply OOP, but due to the lack of any experience, I did not figure out exactly how to do it:
+I wanted to apply OOP, but due to the lack of any experience, I did not figure out exactly how to do it :3
 
 ## logics
 >Contains the core 2048 logic as functions that can be defined outside of main. Due to namespace considerations
 
 I decided to write __doc__ for each function, but something turned out not what I wanted, but still better than nothing.
-(yes, yes, there is in Russian, but there is a google translator, otherwise how would I write it?)
 
 ## database
 >Contains requests to get player results
@@ -52,8 +51,7 @@ Using my flexible thinking (code crutches), I somehow managed to get the SQLite 
 ***
 The repository has a development branch with a data.txt save file in JSON format. It won't go away.
 You can change it and see the result in the game
-Also in this thread there are unit tests that were used in the testing process 2048. (tests are as simple as possible,
-I did not particularly try to complicate them)
+Also in this thread there are unit tests that were used in the testing process 2048. (tests are as simple as possible)
 ***
 The project had about 5 or 7 versions, and each had a huge number of differences and changes compared
 to the previous one, but then I did not know about the git. But now I found out, but those versions are gone.

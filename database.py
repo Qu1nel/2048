@@ -1,6 +1,6 @@
+import sqlite3
 from sqlite3 import Cursor
 from typing import Union
-import sqlite3
 
 __all__ = ['get_best', 'insert_result', 'cursor']
 
