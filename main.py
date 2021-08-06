@@ -9,16 +9,16 @@ import os
 
 
 def render_screen(scr: int, delta: int = 0) -> None:
-    """ Делает 3 действия.
+    """ Does 3 actions
 
-    1 - Вставляет в матрицу 2 случайных числа, если это возможно
+    1 - Insert 2 random numbers into the matrix, if possible
+    
+    2 - Renders the screen
 
-    2 - Отрисовывает экран
+    3 - Refreshes the screen
 
-    3 - Обнавляет экран
-
-    :param scr: Обязательные парамерт. score - счетчик
-    :param delta: Парамерт по умолчанию = 0. delta - дельта счетчика
+    :param scr: score
+    :param delta: delta
     :return: None
     """
     insert_in_mas()
@@ -27,23 +27,22 @@ def render_screen(scr: int, delta: int = 0) -> None:
 
 
 def insert_in_mas() -> None:
-    """ Вставляет случайно 2 или 4 в игровую матрицу ВО ВРЕМЯ процесса игры.
+    """ Inserts randomly 2 or 4 into the game matrix DURING the game process.
 
     :return: None
     """
     global mas, is_mas_move
     if is_mas_move and is_zero_in_mas(mas):
         is_mas_move = False
-        empty = get_empty_list(mas)  # Список пустых ячеек
-        shuffle(empty)  # Мешает список
-        random_num = empty.pop()  # Выбирает *случаный элемент
+        empty = get_empty_list(mas)  # List of empty cells
+        shuffle(empty)  # List gets in the way
+        random_num = empty.pop()  # Selects a random item
         x, y = get_index_from_number(random_num)
         mas = insert_2_or_4(mas, x, y)
-        print(f'Мы заполнили элемент под номером {random_num}')
 
 
 def init_vars() -> None:
-    """ Иницилизирует основные игровые переменные mas и score.
+    """ Initializes the main game variables m and score.
 
     :return: None
     """
@@ -55,10 +54,10 @@ def init_vars() -> None:
         [0, 0, 0, 0],
         [0, 0, 0, 0]
     ]
-    # Заполняем две ячейки случайными числами
+    # Fill two cells with random numbers
     FIRST_SLOT = randint(1, 16)
     SECOND_SLOT = randint(1, 16)
-    while FIRST_SLOT == SECOND_SLOT:  # На случай если *случайные клетки одинаковые
+    while FIRST_SLOT == SECOND_SLOT:  # In case the random cells are the same
         FIRST_SLOT = randint(1, 16)
         SECOND_SLOT = randint(1, 16)
     mas = insert_2_or_4(mas, *get_index_from_number(FIRST_SLOT))
@@ -66,7 +65,7 @@ def init_vars() -> None:
 
 
 def load_game() -> None:
-    """ Загружает сохранение из файла data.txt если он существует.
+    """ Loads save from data.txt file if it exists.
 
     :return: None
     """
@@ -85,10 +84,10 @@ def load_game() -> None:
 
 
 def save_game() -> None:
-    """ Сохраяняет игру при выходе в меню или из игры.
+    """ Saves the game when exiting the menu or exiting the game.
 
-    Создает файл data.txt со словарем json внутри,
-    в словаре все основные константы на момент сохранения
+    Creates a data.txt file with a json dictionary inside,
+    to use all the basic constants at the time of saving
 
     :return: None
     """
@@ -102,9 +101,9 @@ def save_game() -> None:
 
 
 def around_arrow() -> None:
-    """ Рисует экрна при нажатии на инкапсулируюмую стрелу.
+    """ Draws the screen when the encapsulated arrow is clicked.
 
-    В дальшейшем дает возможность выбрать что делать: 1-рестарт игры, 2-отмена
+    In the future, it makes it possible to choose what to do: 1-restart the game, 2-cancel
 
     :return: None
     """
@@ -153,9 +152,9 @@ def around_arrow() -> None:
 
 
 def back_arrow(old_scr: int) -> None:
-    """ Загружает последние действие перед нажатием кнопки.
+    """ Loads the last action before the button is clicked.
 
-    :param old_scr: старый счетчик score - old_score
+    :param old_scr: old score counter
     :return: None
     """
     global mas, score
@@ -167,7 +166,7 @@ def back_arrow(old_scr: int) -> None:
 
 
 def draw_top_gamers() -> None:
-    """ Рисует экран с игроками.
+    """ Draws the screen with players
 
     :return: None
     """
@@ -184,7 +183,7 @@ def draw_top_gamers() -> None:
 
     screen.blit(get_font(120, GEN_FONT).render('Rating', True, COLORS['WHITE']), (86, -50))
 
-    for id, player in ALL_PLAYERS.items():  # Нужно подумать над оптимизацией
+    for id, player in ALL_PLAYERS.items():
         if player['name'] is None:
             screen.blit(get_font(45, GEN_FONT).render('Nothing', True, COLORS['WHITE']), (180, 115 + 100 * id))
         else:
@@ -192,7 +191,6 @@ def draw_top_gamers() -> None:
             if name.get_width() > 154:
                 S = player['name'] + ':'
                 screen.blit(get_font(28, GEN_FONT).render(S, True, COLORS['WHITE']), (117, 135 + 100 * id))
-                # Регулировка счета
                 size_font = 35
                 score_txt = get_font(size_font, GEN_FONT).render(str(player['score']), True, COLORS['WHITE'])
                 while 289 - name.get_width() + 20 + score_txt.get_width() - 117 > 309:  # ширина
@@ -203,7 +201,6 @@ def draw_top_gamers() -> None:
                 direct_x = (406 - x) // 2 - score_txt.get_width() // 2
             else:
                 screen.blit(name, (117, 124 + 100 * id))
-                # Регулировка счета
                 size_font = 35
                 score_txt = get_font(size_font, GEN_FONT).render(str(player['score']), True, COLORS['WHITE'])
                 while 289 - name.get_width() + 20 + score_txt.get_width() - 117 > 309:  # ширина
@@ -236,8 +233,8 @@ def draw_top_gamers() -> None:
 
 
 def put_name() -> None:
-    """ Рисует экран с вводом имени.
-    Есть ограничения по длине
+    """ Draws a screen with a name entry.
+    There are length restrictions
 
     :return: None
     """
@@ -305,7 +302,7 @@ def put_name() -> None:
 
 
 def draw_menu() -> None:
-    """ Рисует основное меню.
+    """ Draws the main menu.
 
     :return: None
     """
@@ -348,12 +345,11 @@ def draw_menu() -> None:
 
 
 def draw_game_over() -> None:
-    """ Рисует экран после проигрыша.
+    """ Draws the screen after losing
 
     :return: None
     """
-    # Нужно добавить запись результатов
-    global USERNAME  # , mas, score
+    global USERNAME
     repeat_box = pygame.Rect(447, 153, 58, 58)
 
     blur = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
@@ -370,7 +366,7 @@ def draw_game_over() -> None:
     make_decision = False
     while not make_decision:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # Нажали на крестик
+            if event.type == pygame.QUIT:  # Clicked on the cross
                 USERNAME = None
                 pygame.quit()
                 sys.exit()
@@ -390,12 +386,10 @@ def draw_game_over() -> None:
 
 
 def draw_victory() -> None:
-    """ Проверяет наличия 2048 в матрице, и по необходимости рисует экран победы ТОЛЬКО 1 РАЗ
+    """ Checks for the presence of 2048 in the matrix, and, if necessary, draws the victory screen ONLY 1 TIME
 
     :return: None
-    """  # Из за того что экран победы рисуется ТОЛЬКО один раз, возникает баг
-    # Когда пользователь побеждает по факту 2 раза, т.е достигает 2048 дважды на одной *сесии в игре
-    # Второй раз отрисовка победы не будет((( Нужно было юзать ООП...
+    """
     start_draw = False
     for i in range(4):
         if 2048 in mas[i]:
@@ -435,9 +429,9 @@ def draw_victory() -> None:
 
 
 def game_loop() -> bool:
-    """ Главный игровой цикл.
+    """ Main game loop.
 
-    :return: булево значение. True - если была нажата кнопка меню, False иначе
+    :return: boolean value. True - if the menu button was pressed, False otherwise
     """
     global score, mas, is_mas_move, copy_mas, old_score, USERNAME
 
@@ -451,60 +445,60 @@ def game_loop() -> bool:
     is_mas_move = False
     move_mouse = False
     while is_zero_in_mas(mas) or can_move(mas):
-        for event in pygame.event.get():  # Обработка событий
-            if event.type == pygame.QUIT:  # Нажали на крестик
+        for event in pygame.event.get():  # Event handler
+            if event.type == pygame.QUIT:  # Clicked on the cross
                 save_game()
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:  # Нажали на клавишу мыши
-                if menu_box.collidepoint(event.pos):  # Меню
+            elif event.type == pygame.MOUSEBUTTONDOWN:  # Clicked on the mouse button
+                if menu_box.collidepoint(event.pos):  # Menu
                     insert_result(USERNAME, score)
                     USERNAME = None
                     return True
-                elif back_arrow_box.collidepoint(event.pos):  # Обратная стрелка
+                elif back_arrow_box.collidepoint(event.pos):  # Back arrow
                     back_arrow(old_score)
-                elif repeat_box.collidepoint(event.pos):  # Инкапсулируемая стрелка
+                elif repeat_box.collidepoint(event.pos):  # Encapsulated arrow
                     around_arrow()
-                elif play_ground.collidepoint(event.pos):  # Свайп мышкно НАЧАЛО
+                elif play_ground.collidepoint(event.pos):  # Swipe mouse part 1
                     move_mouse = True
                     position = event.pos
-            elif event.type == pygame.MOUSEBUTTONUP:  # Отжали клавишу мыши
-                if move_mouse:  # Свайп мышкно КОНЕЦ
+            elif event.type == pygame.MOUSEBUTTONUP:  # Released the mouse button
+                if move_mouse:  # Swipe mouse part 2
                     move_mouse = False
                     if position != event.pos:
                         source_swipe = get_side(position, event.pos)
                         if source_swipe[1] > 30:
-                            command_side = {'ВВЕРХ': move_up, 'ВНИЗ': move_down,
-                                            'ВЛЕВО': move_left, 'ВПРАВО': move_right}
+                            command_side = {'UP': move_up, 'DOWN': move_down,
+                                            'LEFT': move_left, 'RIGHT': move_right}
                             copy_mas = copy.deepcopy(mas)
                             mas, delta, is_mas_move = command_side[source_swipe[0]](mas)
                             score += delta
                             render_screen(score, delta)
                             draw_victory()
-            elif event.type == pygame.KEYDOWN:  # Нажали на клавишу
+            elif event.type == pygame.KEYDOWN:  # Pressed the key
                 delta = 0
                 if event.key == pygame.K_ESCAPE:
                     save_game()
                     pygame.quit()
                     sys.exit()
-                elif event.key == 104:  # Меню
+                elif event.key == 104:  # Menu
                     insert_result(USERNAME, score)
                     USERNAME = None
                     return True
-                elif event.key == 98:  # Обратная стрелка
+                elif event.key == 98:  # Back arrow
                     back_arrow(old_score)
-                elif event.key == 114:  # Инкапсулируемая стрелка
+                elif event.key == 114:  # Encapsulated arrow
                     around_arrow()
-                elif event.key == pygame.K_LEFT or event.key == 97:  # Влево
+                elif event.key == pygame.K_LEFT or event.key == 97:  # Left
                     copy_mas = copy.deepcopy(mas)
                     mas, delta, is_mas_move = move_left(mas)
-                elif event.key == pygame.K_RIGHT or event.key == 100:  # Вправо
+                elif event.key == pygame.K_RIGHT or event.key == 100:  # Right
                     copy_mas = copy.deepcopy(mas)
                     mas, delta, is_mas_move = move_right(mas)
-                elif event.key == pygame.K_UP or event.key == 119:  # Вверх
+                elif event.key == pygame.K_UP or event.key == 119:  # Up
                     copy_mas = copy.deepcopy(mas)
                     mas, delta, is_mas_move = move_up(mas)
-                elif event.key == pygame.K_DOWN or event.key == 115:  # Вниз
+                elif event.key == pygame.K_DOWN or event.key == 115:  # Down
                     copy_mas = copy.deepcopy(mas)
                     mas, delta, is_mas_move = move_down(mas)
                 old_score = score
@@ -515,16 +509,16 @@ def game_loop() -> bool:
 
 
 def draw_interface(scr: int, delta: int = 0) -> None:
-    """ Рисует оснвной интерфейс.
+    """ Draws the main interface
 
-    :param scr: счет
-    :param delta: дельта для счета
+    :param scr: score
+    :param delta: delta for score
     :return: None
     """
-    back_ground = pygame.image.load("images\\BG\\BackGround.jpg")  # Фон
-    round_arrow = pygame.image.load("images\\elements\\around_arrow.png")  # Инкапсулируемая стрелка
-    arrow = pygame.image.load("images\\elements\\arrow.png")  # обратная стрелка
-    menu = pygame.image.load("images\\elements\\home.png")  # меню
+    back_ground = pygame.image.load("images\\BG\\BackGround.jpg")  # BackGround
+    round_arrow = pygame.image.load("images\\elements\\around_arrow.png")  # Encapsulated arrow
+    arrow = pygame.image.load("images\\elements\\arrow.png")  # Back arrow
+    menu = pygame.image.load("images\\elements\\home.png")  # Menu
 
     screen.blit(pygame.transform.scale(back_ground, [WIDTH, HEIGHT + 2]), (0, 0))
     screen.blit(pygame.transform.scale(round_arrow, [43, 43]), (453, 159))
@@ -534,29 +528,29 @@ def draw_interface(scr: int, delta: int = 0) -> None:
     var = lambda x, y: is_what_rank_numbers(y) * 8 if x == 25 else is_what_rank_numbers(y) * 7
 
     best_score = get_best(1)['score']
-    high_score = 0 if best_score == -1 else best_score  # Лучший результат
-    size_score, size_high_score = get_size_font(scr, high_score)  # Варьирующиеся размеры шрифта
-    screen.blit(get_font(18, GEN_FONT).render('SCORE', True, COLORS['GRAY']), (300, 55))  # Текст score
-    screen.blit(get_font(17, GEN_FONT).render('HIGH SCORE', True, COLORS['GRAY']), (402, 55))  # Текст high score
-    screen.blit(get_font(86, GEN_FONT).render('2048', True, COLORS['WHITE']), (30, 2))  # Текст для 2048
+    high_score = 0 if best_score == -1 else best_score  # Best result
+    size_score, size_high_score = get_size_font(scr, high_score)  # Variable size of the font
+    screen.blit(get_font(18, GEN_FONT).render('SCORE', True, COLORS['GRAY']), (300, 55))  # Text score
+    screen.blit(get_font(17, GEN_FONT).render('HIGH SCORE', True, COLORS['GRAY']), (402, 55))  # Text high score
+    screen.blit(get_font(86, GEN_FONT).render('2048', True, COLORS['WHITE']), (30, 2))  # Text for 2048
 
-    result = var(size_score, scr)  # Подстановка для числа score
+    result = var(size_score, scr)  # substitution for number score
     screen.blit(get_font(size_score, GEN_FONT).render(f'{scr}', True, COLORS['WHITE']), (317 - result, 77))
 
-    result = var(size_high_score, high_score)  # Подстановка для числа high score
+    result = var(size_high_score, high_score)  # substitution for number high score
     screen.blit(get_font(size_high_score, GEN_FONT).render(f'{high_score}', True, COLORS['WHITE']), (440 - result, 77))
     if delta > 0:
-        var = is_what_rank_numbers(delta) * 14  # Подстановка для числа delta
+        var = is_what_rank_numbers(delta) * 14  # substitution for number delta
         screen.blit(get_font(34, GEN_FONT).render(f'+{delta}', True, COLORS['WHITE']), (115 - var, 160))
 
     pretty_print(mas)
-    for row in range(BLOCKS):  # Строим клеточки
+    for row in range(BLOCKS):  # Building cells
         for column in range(BLOCKS):
             value, font = get_const_4_cell(mas[row][column], GEN_FONT)
             text = font.render(f'{value}', True, get_colour(value))
             w = column * SIZE_BLOCK + (column - 1) * MARGIN + 30
             h = row * SIZE_BLOCK + (row - 1) * MARGIN + 240
-            if value != 0:  # Размещения цифры на ячейки
+            if value != 0:  # Placing numbers on cells
                 pygame.draw.rect(screen, COLORS[value], (w, h, SIZE_BLOCK + 2, SIZE_BLOCK + 2), border_radius=7)
                 font_w, font_h = text.get_size()
                 text_x = w + (SIZE_BLOCK - font_w) / 2
@@ -564,20 +558,19 @@ def draw_interface(scr: int, delta: int = 0) -> None:
                 screen.blit(text, (text_x, text_y))
 
 
-# ОКОННЫЕ КОНСТАНТЫ
+# WINDOW CONSTANTS
 BLOCKS = 4
 SIZE_BLOCK = 112
 MARGIN = 9
 WIDTH = 520
 HEIGHT = 725
 
-# ИГРОВЫЕ КОНСТАНТЫ
-is_mas_move = None  # Первое условие для перемешения клеточек
+is_mas_move = None
 mas = None
 copy_mas = None
 score = old_score = None
 USERNAME = None
-GEN_FONT = 'vag-world-bold.ttf'  # Основной шрифт игры
+GEN_FONT = 'vag-world-bold.ttf'  # The main font of the game
 
 COLORS = {
     0: "#545c8a",
@@ -605,13 +598,13 @@ COLORS = {
     'GRAY': '#aebad0'
 }
 if __name__ == '__main__':
-    # Создание окна
+    # Create a window
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('2048')
     pygame.display.set_icon(pygame.image.load('2048_icon.png'))
 
-    while True:  # Игровой процесс
+    while True:  # Game loop
         load_game()
         if USERNAME is None:
             draw_menu()
