@@ -1,22 +1,16 @@
+import sqlite3
 from sqlite3 import Cursor
 from typing import Union
-import sqlite3
 
 __all__ = ['get_best', 'insert_result', 'cursor']
 
 
-def get_best(count: int = 0) -> dict[int: tuple[Union[None, str], int], ...]:
-    """ Возвращает результат 3 лучших игроков.
-
-     В виде {ID: {name: srt, score: int}, ...(3) times}
-    :return:  dict[int: tuple[Union[None, str], int],
-                int: tuple[Union[None, str], int],
-                int: tuple[Union[None, str], int]]:
-    """
+def get_best(count: int = 0) -> dict[int: tuple[Union[None, str], int]]:
+    """ Returns the result of the top 3 players. """
     try:
         assert -1 <= count <= 3
     except AssertionError:
-        raise ValueError('Неправильный аргумент count, должен быть не больше 3 и не меньше -1')
+        raise ValueError('Invalid argument count, must be no more than 3 and no less than -1')
     cursor.execute("""
     SELECT name gamer, max(score) score FROM RECORDS
     GROUP by name
@@ -30,15 +24,15 @@ def get_best(count: int = 0) -> dict[int: tuple[Union[None, str], int], ...]:
 
 
 def insert_result(name: str, score: int) -> None:
-    """ Вставляет новые данные в таблицу SQL, сохраняя её.
+    """ Inserts new data into the SQL table, saving it.
 
-     name: имя игрока
-    score: значение рекорда
+     name: name of the player
+    score: record value
     """
     cursor.execute("""
     insert into RECORDS values ( ?, ?)
     """, (name, score))
-    BD.commit()  # Сохранение таблицы SQL
+    BD.commit()
 
 
 BD = sqlite3.connect("2048.sqlite")

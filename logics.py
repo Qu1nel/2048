@@ -1,6 +1,6 @@
-from random import random
 import pygame
 import copy
+from random import random
 
 __all__ = [
     'Point',
@@ -33,32 +33,32 @@ class Point:
         self._y = y
 
     def get_side(self) -> str:
-        """ Выдает основное направление по x и y точки.
+        """ Gives the main x and y direction of a point.
 
         :return: str
         """
-        if self._x > 0 and self._y >= 0:  # 1-ая четверть
+        if self._x > 0 and self._y >= 0:  # 1st quarter
             if self._x == self._y or self._x < self._y:
-                return 'ВВЕРХ'
-            return 'ВПРАВО'
-        if self._x <= 0 < self._y:  # 2-ая четверть
+                return 'UP'
+            return 'RIGHT'
+        if self._x <= 0 < self._y:  # 2nd quarter
             if abs(self._x) == self._y or abs(self._x) > self._y:
-                return 'ВЛЕВО'
-            return 'ВВЕРХ'
-        if self._x < 0 and self._y <= 0:  # 3-ая четверть
+                return 'LEFT'
+            return 'UP'
+        if self._x < 0 and self._y <= 0:  # 3rd quarter
             if self._x == self._y or abs(self._x) < abs(self._y):
-                return 'ВНИЗ'
-            return 'ВЛЕВО'
-        if self._y < 0 <= self._x:  # 4-ая четверть
+                return 'DOWN'
+            return 'LEFT'
+        if self._y < 0 <= self._x:  # 4th quarter
             if self._x == abs(self._y) or self._x > abs(self._y):
-                return 'ВПРАВО'
-            return 'ВНИЗ'
+                return 'RIGHT'
+            return 'DOWN'
 
 
 def pretty_print(mas: list) -> None:
-    """ Красиво выводит в консоль состояние матрицы
+    """ Nicely displays the state of the matrix to the console
 
-    :param mas: игровая матрица mas
+    :param mas: game matrix
     :return: None
     """
     print('-' * 21)
@@ -70,17 +70,17 @@ def pretty_print(mas: list) -> None:
 
 
 def insert_2_or_4(mas: list, x: int, y: int) -> list:
-    """ Вставляет в указанную ячейку матрицы 2 или 4 возвращая обнавленнцю матрицу
+    """ Inserts a 2 or 4 matrix into the specified cell, returning an updated matrix
 
-     2 с вероятностью 90%
-    4 с вероятностью 10%
+     2 with a 90% probability
+    4 with a probability of 10%
 
-    :param mas: игровая матрица mas
-    :param x: строка mas
-    :param y: столбец mas
-    :return: обнавленный mas
+    :param mas: game matrix
+    :param x: row mas
+    :param y: column mas
+    :return: updated matrix
     """
-    if random() <= 0.90:  # Выбор вероятности для выпадений 2
+    if random() <= 0.90:
         mas[x][y] = 2
     else:
         mas[x][y] = 4
@@ -88,30 +88,30 @@ def insert_2_or_4(mas: list, x: int, y: int) -> list:
 
 
 def get_number_from_index(i: int, j: int) -> int:
-    """ Возвращает число по индексам ячейки матрицы.
+    """ Returns the number at the indices of the matrix cell.
 
-    :param i: индекс по строке матрицы
-    :param j: индекс по столбцу матрицы
-    :return: int Число [1-16]
+    :param i: matrix row index
+    :param j: matrix column index
+    :return: number [1-16]
     """
     return i * 4 + j + 1
 
 
 def get_index_from_number(num: int) -> tuple[int, int]:
-    """ Возвращает кортеж с индексоами по номеру ячейки матрицы.
+    """ Returns a tuple with indices based on the matrix cell number.
 
-    :param num: число ячейки матрицы
-    :return: tuple вида: (int, int)
+    :param num: number of matrix cells
+    :return: tuple of the form (int, int)
     """
     num -= 1
     return num // 4, num % 4
 
 
 def get_empty_list(mas: list) -> list:
-    """ Возвращает список с номерами пустых ячеик.
+    """ Returns a list with empty cell numbers.
 
-    :param mas: игровая матрица list
-    :return: список с номерами пустых клеток
+    :param mas: game matrix
+    :return: list with numbers of empty cells
     """
     empty = []
     for i in range(4):
@@ -122,10 +122,10 @@ def get_empty_list(mas: list) -> list:
 
 
 def is_zero_in_mas(mas: list) -> bool:
-    """ Проверяет, есть ли 0 в матрице.
+    """ Checks if there is a 0 in the matrix.
 
-    :param mas: игровая матрица list
-    :return: Булевый тип
+    :param mas: game matrix
+    :return: bool
     """
     for row in mas:
         if 0 in row:
@@ -134,14 +134,14 @@ def is_zero_in_mas(mas: list) -> bool:
 
 
 def move_left(mas: list) -> tuple[list, int, bool]:
-    """ Возвращает обновленную матрицу со смещенными по правилу игры элементами влево.
+    """ Returns the updated matrix with game-shifted elements to the left.
 
-    :param mas: игровая матрица list
-    :return: обнавленный игровая матрица list
+    :param mas: game matrix
+    :return: updated play matrix
     """
-    # сохранить превоначальное значения матрицы
-    origin = copy.deepcopy(mas)  # deepcopy копирует многомерный матрица без привязки к оригиналу
-    delta = 0  # сумма изменений ячеек, для результата
+    # keep the original values of the matrix
+    origin = copy.deepcopy(mas)
+    delta = 0  # sum of cell changes, for the result
     for row in mas:
         while 0 in row:
             row.remove(0)
@@ -159,13 +159,13 @@ def move_left(mas: list) -> tuple[list, int, bool]:
 
 
 def move_right(mas: list) -> tuple[list, int, bool]:
-    """ Возвращает обновленную матрицу со смещенными по правилу игры элементами вправо.
+    """ Returns the updated matrix with game-shifted elements right.
 
-    :param mas: игровая матрица list
-    :return: обнавленный игровая матрица list
+    :param mas: game matrix
+    :return: updated play matrix
     """
     origin = copy.deepcopy(mas)
-    delta = 0  # сумма изменений ячеек, для результата
+    delta = 0  # sum of cell changes, for the result
     for row in mas:
         while 0 in row:
             row.remove(0)
@@ -183,13 +183,13 @@ def move_right(mas: list) -> tuple[list, int, bool]:
 
 
 def move_up(mas: list) -> tuple[list, int, bool]:
-    """ Возвращает обновленную матрицу со смещенными по правилу игры элементами вверх.
+    """ Returns the updated matrix with game-shifted elements up.
 
-    :param mas: игровая матрица list
-    :return: обнавленный игровая матрица list
+    :param mas: game matrix
+    :return: updated play matrix
     """
     origin = copy.deepcopy(mas)
-    delta = 0  # сумма изменений ячеек, для результата
+    delta = 0  # sum of cell changes, for the result
     for j in range(4):
         column = []
         for i in range(4):
@@ -209,13 +209,13 @@ def move_up(mas: list) -> tuple[list, int, bool]:
 
 
 def move_down(mas: list) -> tuple[list, int, bool]:
-    """ Возвращает обновленную матрицу со смещенными по правилу игры элементами вниз.
+    """ Returns the updated matrix with game-shifted elements downward.
 
-    :param mas: игровая матрица list
-    :return: обнавленный игровая матрица list
+    :param mas: game matrix
+    :return: updated play matrix
     """
     origin = copy.deepcopy(mas)
-    delta = 0  # сумма изменений ячеек, для результата
+    delta = 0  # sum of cell changes, for the result
     for j in range(4):
         column = []
         for i in range(4):
@@ -235,10 +235,10 @@ def move_down(mas: list) -> tuple[list, int, bool]:
 
 
 def can_move(mas: list) -> bool:
-    """ Проверяет, Проверяет можно ли сделать дейсвтие.
+    """ Checks if an action can be taken.
 
-    :param mas: игровая матрица list
-    :return: Булевый тип
+    :param mas: game matrix
+    :return: bool
     """
     for i in range(3):
         for j in range(3):
@@ -252,11 +252,11 @@ def can_move(mas: list) -> bool:
 
 
 def is_what_rank_numbers(number: int) -> int:
-    """ Возвращает число, обозначающее сколько цифр в числе.
-    Возвращает 0 для чисел до 10.
+    """ Returns a number indicating how many digits are in a number.
+    Returns 0 for numbers up to 10.
 
-    :param number: любое число int
-    :return: количество цифр в нём int
+    :param number: any int
+    :return: the number of digits
     """
     number //= 10
     total = 0
@@ -267,11 +267,11 @@ def is_what_rank_numbers(number: int) -> int:
 
 
 def get_size_font(score_size: int, score_top_size: int) -> tuple[int, int]:
-    """ Возвращает кортеж с двумя значениями, для подстановки текста значений на экране
+    """ Returns a tuple with two values to substitute the text of the values on the screen
 
-    :param score_size: Значение score, для счетчика score
-    :param score_top_size: Значение лучшего игрока, для счетчика лучшего результата
-    :return: кортеж с двумя значениями - (int, int)
+    :param score_size: value of the score
+    :param score_top_size: value of the hight score
+    :return: a tuple with two values (int, int)
     """
     SIZE_SCORE = is_what_rank_numbers(score_size)
     SCORE_TOP_SIZE = is_what_rank_numbers(score_top_size)
@@ -286,11 +286,11 @@ def get_size_font(score_size: int, score_top_size: int) -> tuple[int, int]:
 
 
 def get_var_for_size(number_size: int, number: int) -> int:
-    """ Возвращает число для более точного урегулирования текста на экране
+    """ Returns a number for more precise adjustment of the text on the screen
 
-    :param number_size: Размер шрифта
-    :param number: Самой значение текста
-    :return: Одно число для учета погрешности
+    :param number_size: Size of the font
+    :param number: value of the text
+    :return: int
     """
     if number_size == 35:
         return is_what_rank_numbers(number) * 7
@@ -298,10 +298,10 @@ def get_var_for_size(number_size: int, number: int) -> int:
 
 
 def get_colour(value: int) -> str:
-    """ По переданному числу возвращает его цвет на клетке
+    """ Returns its color on the cell as given
 
-    :param value: Число которое должно быть на игровом поле
-    :return: Цвет числа
+    :param value: The number that must be on the playing field
+    :return: color of the cell
     """
     if value in (2, 4):
         return '#545E66'  # GRAY
@@ -309,11 +309,11 @@ def get_colour(value: int) -> str:
 
 
 def get_const_4_cell(value: int, gen_font: str) -> tuple[int, object]:
-    """ Возвращает кортеж с числом и шрифтом в котором доллжно нарисоваться это число
+    """ Returns a tuple with a number and a font in which this number should be drawn
 
-    :param value: Значение из клетки
-    :param gen_font: Шрифт каким будет нарисован значение на экране
-    :return: Кортеж с числом которое нужно вывести, и шрифтом
+    :param value: Value out of the cage
+    :param gen_font: Font of the text
+    :return: tuple
     """
     size = 50
     font = pygame.font.Font(gen_font, size)
@@ -335,12 +335,11 @@ def get_const_4_cell(value: int, gen_font: str) -> tuple[int, object]:
 
 
 def get_side(dot_one: tuple, dot_two: tuple) -> tuple[str, int]:
-    """ get_side(dot_one: tuple, dot_two: tuple) -> tuple[str, int].
-    Возвращает основную стороку свайпа, т.е. верх, низ, лево, право + расстояние
+    """ Returns the main side of the swipe. top, bottom, left, right + distance
 
-    :param dot_one: Первая точка - (x, y)
-    :param dot_two: Вторая точка - (x, y)
-    :return: Кортеж со стороной и расстоянием между точками - ("сторона", расстояние)
+    :param dot_one: First point - (x, y)
+    :param dot_two: Second point - (x, y)
+    :return: tuple
     """
     x = dot_two[0] - dot_one[0]
     y = dot_one[1] - dot_two[1]
@@ -352,10 +351,10 @@ def get_side(dot_one: tuple, dot_two: tuple) -> tuple[str, int]:
 
 
 def get_font(number: int, font: str) -> pygame.font.Font:
-    """ Задает размер дефолтного шрифта
+    """ Sets the size of the default font
 
-    :param number: размер шрифта int
-    :param font: путь до шрифта
-    :return: сам шрифт
+    :param number: size of the font int
+    :param font: path to font
+    :return: font
     """
     return pygame.font.Font(font, number)

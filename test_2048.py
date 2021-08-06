@@ -227,76 +227,76 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(is_what_rank_numbers(num), 8)
 
     def test_I_1(self):
-        self.assertEqual(Point(78, 45).get_side(), 'ВПРАВО')
+        self.assertEqual(Point(78, 45).get_side(), 'RIGHT')
 
     def test_I_2(self):
-        self.assertEqual(Point(46, 45).get_side(), 'ВПРАВО')
+        self.assertEqual(Point(46, 45).get_side(), 'RIGHT')
 
     def test_I_3(self):
-        self.assertEqual(Point(45, 45).get_side(), 'ВВЕРХ')
+        self.assertEqual(Point(45, 45).get_side(), 'UP')
 
     def test_I_4(self):
-        self.assertEqual(Point(45, 46).get_side(), 'ВВЕРХ')
+        self.assertEqual(Point(45, 46).get_side(), 'UP')
 
     def test_I_5(self):
-        self.assertEqual(Point(2, 56).get_side(), 'ВВЕРХ')
+        self.assertEqual(Point(2, 56).get_side(), 'UP')
 
     def test_I_6(self):
-        self.assertEqual(Point(2, 0).get_side(), 'ВПРАВО')
+        self.assertEqual(Point(2, 0).get_side(), 'RIGHT')
 
     def test_II_1(self):
-        self.assertEqual(Point(-10, 90).get_side(), 'ВВЕРХ')
+        self.assertEqual(Point(-10, 90).get_side(), 'UP')
 
     def test_II_2(self):
-        self.assertEqual(Point(-44, 45).get_side(), 'ВВЕРХ')
+        self.assertEqual(Point(-44, 45).get_side(), 'UP')
 
     def test_II_3(self):
-        self.assertEqual(Point(-45, 45).get_side(), 'ВЛЕВО')
+        self.assertEqual(Point(-45, 45).get_side(), 'LEFT')
 
     def test_II_4(self):
-        self.assertEqual(Point(-46, 45).get_side(), 'ВЛЕВО')
+        self.assertEqual(Point(-46, 45).get_side(), 'LEFT')
 
     def test_II_5(self):
-        self.assertEqual(Point(-90, 10).get_side(), 'ВЛЕВО')
+        self.assertEqual(Point(-90, 10).get_side(), 'LEFT')
 
     def test_II_6(self):
-        self.assertEqual(Point(0, 3).get_side(), 'ВВЕРХ')
+        self.assertEqual(Point(0, 3).get_side(), 'UP')
 
     def test_III_1(self):
-        self.assertEqual(Point(-90, -10).get_side(), 'ВЛЕВО')
+        self.assertEqual(Point(-90, -10).get_side(), 'LEFT')
 
     def test_III_2(self):
-        self.assertEqual(Point(-46, -45).get_side(), 'ВЛЕВО')
+        self.assertEqual(Point(-46, -45).get_side(), 'LEFT')
 
     def test_III_3(self):
-        self.assertEqual(Point(-45, -45).get_side(), 'ВНИЗ')
+        self.assertEqual(Point(-45, -45).get_side(), 'DOWN')
 
     def test_III_4(self):
-        self.assertEqual(Point(-45, -46).get_side(), 'ВНИЗ')
+        self.assertEqual(Point(-45, -46).get_side(), 'DOWN')
 
     def test_III_5(self):
-        self.assertEqual(Point(-10, -90).get_side(), 'ВНИЗ')
+        self.assertEqual(Point(-10, -90).get_side(), 'DOWN')
 
     def test_III_6(self):
-        self.assertEqual(Point(-10, 0).get_side(), 'ВЛЕВО')
+        self.assertEqual(Point(-10, 0).get_side(), 'LEFT')
 
     def test_IV_1(self):
-        self.assertEqual(Point(10, -90).get_side(), 'ВНИЗ')
+        self.assertEqual(Point(10, -90).get_side(), 'DOWN')
 
     def test_IV_2(self):
-        self.assertEqual(Point(44, -45).get_side(), 'ВНИЗ')
+        self.assertEqual(Point(44, -45).get_side(), 'DOWN')
 
     def test_IV_3(self):
-        self.assertEqual(Point(45, -45).get_side(), 'ВПРАВО')
+        self.assertEqual(Point(45, -45).get_side(), 'RIGHT')
 
     def test_IV_4(self):
-        self.assertEqual(Point(46, -45).get_side(), 'ВПРАВО')
+        self.assertEqual(Point(46, -45).get_side(), 'RIGHT')
 
     def test_IV_5(self):
-        self.assertEqual(Point(90, -10).get_side(), 'ВПРАВО')
+        self.assertEqual(Point(90, -10).get_side(), 'RIGHT')
 
     def test_IV_6(self):
-        self.assertEqual(Point(0, -10).get_side(), 'ВНИЗ')
+        self.assertEqual(Point(0, -10).get_side(), 'DOWN')
 
 
 if __name__ == '__main__':
