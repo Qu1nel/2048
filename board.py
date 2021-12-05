@@ -80,6 +80,23 @@ class GameBoard(object):
             for x in range(4):
                 self[x][y] = column[x]
 
+    def move_down(self):
+        """Moves the board to the down"""
+        for y in range(4):
+            column = []
+            for x in range(4):
+                if self[x][y] != 0:
+                    column.append(self[x][y])
+            while len(column) != 4:
+                column.insert(0, 0)
+            for x in range(3, 0, -1):
+                if column[x] != 0 and column[x] == column[x - 1]:
+                    column[x] *= 2
+                    column.pop(x - 1)
+                    column.insert(0, 0)
+            for x in range(4):
+                self[x][y] = column[x]
+
     @property
     def get_mas(self):
         return self.__mas
