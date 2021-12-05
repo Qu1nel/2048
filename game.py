@@ -1,9 +1,8 @@
 from abc import abstractmethod
 from typing import Union
+
 import pygame
 
-
-# TODO made a file with const and vars
 
 class Game(object):
     """A class with all the main attributes of the game (game window)"""
