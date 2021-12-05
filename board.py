@@ -63,6 +63,23 @@ class GameBoard(object):
                     self[x].pop(k - 1)
                     self[x].insert(0, 0)
 
+    def move_up(self):
+        """Moves the board to the up"""
+        for y in range(4):
+            column = []
+            for x in range(4):
+                if self[x][y] != 0:
+                    column.append(self[x][y])
+            while len(column) != 4:
+                column.append(0)
+            for x in range(3):
+                if column[x] != 0 and column[x] == column[x + 1]:
+                    column[x] *= 2
+                    column.pop(x + 1)
+                    column.append(0)
+            for x in range(4):
+                self[x][y] = column[x]
+
     @property
     def get_mas(self):
         return self.__mas

@@ -54,7 +54,7 @@ class Game2048(Interface):
                 elif event.key == pg.K_RIGHT or event.key == pg.K_d:  # Right
                     self.board.move_right()
                 elif event.key == pg.K_UP or event.key == pg.K_w:  # Up
-                    mas, delta, is_mas_move = move_up(mas)
+                    self.board.move_up()
                 elif event.key == pg.K_DOWN or event.key == pg.K_s:  # Down
                     mas, delta, is_mas_move = move_down(mas)
                 self.update()
