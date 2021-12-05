@@ -1,7 +1,8 @@
+import copy
 from random import random, shuffle, randint
 from typing import Any
 
-from logics_TMP import get_index_from_number
+from logics_TMP import get_index_from_number, get_number_from_index
 
 
 class GameBoard(object):
@@ -35,6 +36,7 @@ class GameBoard(object):
 
     def move_left(self):
         """Moves the board to the left"""
+        origin = copy.deepcopy(self.get_mas)
         for row in self:
             while 0 in row:
                 row.remove(0)
@@ -47,9 +49,11 @@ class GameBoard(object):
                     self[x][y] *= 2
                     self[x].pop(y + 1)
                     self[x].append(0)
+        self.is_board_move = not origin == self.get_mas
 
     def move_right(self):
         """Moves the board to the right"""
+        origin = copy.deepcopy(self.get_mas)
         for row in self:
             while 0 in row:
                 row.remove(0)
@@ -60,11 +64,13 @@ class GameBoard(object):
             for y in range(3, 0, -1):
                 if self[x][y] != 0 and self[x][y] == self[x][y - 1]:
                     self[x][y] *= 2
-                    self[x].pop(k - 1)
+                    self[x].pop(y - 1)
                     self[x].insert(0, 0)
+        self.is_board_move = not origin == self.get_mas
 
     def move_up(self):
         """Moves the board to the up"""
+        origin = copy.deepcopy(self.get_mas)
         for y in range(4):
             column = []
             for x in range(4):
@@ -79,9 +85,11 @@ class GameBoard(object):
                     column.append(0)
             for x in range(4):
                 self[x][y] = column[x]
+        self.is_board_move = not origin == self.get_mas
 
     def move_down(self):
         """Moves the board to the down"""
+        origin = copy.deepcopy(self.get_mas)
         for y in range(4):
             column = []
             for x in range(4):
@@ -96,6 +104,7 @@ class GameBoard(object):
                     column.insert(0, 0)
             for x in range(4):
                 self[x][y] = column[x]
+        self.is_board_move = not origin == self.get_mas
 
     @property
     def get_mas(self):

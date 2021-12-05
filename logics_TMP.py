@@ -7,6 +7,11 @@ def get_index_from_number(num: int) -> tuple[int, int]:
     return num // 4, num % 4
 
 
+def get_number_from_index(x: int, y: int) -> int:
+    """Returns the number at the indices of the board cell"""
+    return x * 4 + y + 1
+
+
 def get_const_4_cell(value: int, gen_font: str) -> tuple[int, object]:
     """Returns the size for the font and the font itself as a tuple"""
     size = 50
