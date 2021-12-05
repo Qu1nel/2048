@@ -1,6 +1,9 @@
 import json
 import os
+import sys
+
 import pygame as pg
+
 from board import GameBoard
 from interface import Interface
 
@@ -19,18 +22,34 @@ class Game2048(Interface):
         if 'save.txt' in os.listdir(path):
             with open('save.txt') as file:
                 data = json.load(file)
-                self.board = data['mas']
+                print(data, 'IN')
+                self.board = GameBoard(data['board'])
                 self.score = data['score']
                 self.username = data['user']
-            full_path = os.path.join(path, 'data.txt')
+            full_path = os.path.join(path, 'save.txt')
             os.remove(full_path)
         else:
             self.__init__()
 
+    def save_game(self):
+        """Saves the game"""
+        data = dict(user=self.username, score=self.score, board=self.board.get_mas)
+        print(data, 'OUT')
+        with open('save.txt', 'w') as outfile:
+            json.dump(data, outfile)
+
+    def handle_events(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                self.save_game()
+                pg.quit()
+                sys.exit()
+
     def run(self):
         self.load_game()
+        self.draw_main()
         while self.board.are_there_zeros() and self.board.can_move():
-            # self.handle_events()
+            self.handle_events()
 
             pg.display.update()
             self.clock.tick(self.framerate)

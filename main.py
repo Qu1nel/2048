@@ -86,7 +86,7 @@ def load_game() -> None:
 
 
 def save_game() -> None:
-    """ Saves the game when exiting the menu or exiting the game.
+    """  the menu or exiting the game.
 
     Creates a data.txt file with a json dictionary inside,
     to use all the basic constants at the time of saving
@@ -517,7 +517,7 @@ def draw_interface(scr: int, delta: int = 0) -> None:
     :param delta: delta for score
     :return: None
     """
-    back_ground = pygame.image.load("images\\BG\\BackGround.jpg")  # BackGround
+    back_ground = pygame.image.load("images/BG/BG.jpg")  # BackGround
     round_arrow = pygame.image.load("images\\elements\\around_arrow.png")  # Encapsulated arrow
     arrow = pygame.image.load("images\\elements\\arrow.png")  # Back arrow
     menu = pygame.image.load("images\\elements\\home.png")  # Menu

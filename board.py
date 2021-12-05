@@ -5,13 +5,16 @@ from logics_TMP import get_index_from_number
 
 
 class GameBoard(object):
-    def __init__(self):
-        self.__mas = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ]
+    def __init__(self, mas: list = None):
+        if mas is not None:
+            self.__mas = mas
+        else:
+            self.__mas = [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ]
         self.is_board_move = None
 
         FIRST_SLOT, SECOND_SLOT = randint(1, 16), randint(1, 16)
@@ -29,6 +32,10 @@ class GameBoard(object):
 
     def __iter__(self):
         return iter(self.__mas)
+
+    @property
+    def get_mas(self):
+        return self.__mas
 
     def are_there_zeros(self) -> bool:
         """Checks if there is a 0 in the board"""
