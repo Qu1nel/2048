@@ -22,7 +22,6 @@ class Game2048(Interface):
         if 'save.txt' in os.listdir(path):
             with open('save.txt') as file:
                 data = json.load(file)
-                print(data, 'IN')
                 self.board = GameBoard(data['board'])
                 self.score = data['score']
                 self.username = data['user']
@@ -34,9 +33,13 @@ class Game2048(Interface):
     def save_game(self):
         """Saves the game"""
         data = dict(user=self.username, score=self.score, board=self.board.get_mas)
-        print(data, 'OUT')
         with open('save.txt', 'w') as outfile:
             json.dump(data, outfile)
+
+    def update(self):
+        self.board.insert_in_mas()
+        self.draw_main()
+        pg.display.update()
 
     def handle_events(self):
         for event in pg.event.get():
@@ -44,8 +47,8 @@ class Game2048(Interface):
                 self.save_game()
                 pg.quit()
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+            elif event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
                     save_game()
                     pygame.quit()
                     sys.exit()

@@ -45,7 +45,7 @@ class GameBoard(object):
             for y in range(3):
                 if self[x][y] != 0 and self[x][y] == self[x][y + 1]:
                     self[x][y] *= 2
-                    self[x].pop(k + 1)
+                    self[x].pop(y + 1)
                     self[x].append(0)
 
     def move_right(self):
