@@ -44,6 +44,20 @@ class Game2048(Interface):
                 self.save_game()
                 pg.quit()
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    save_game()
+                    pygame.quit()
+                    sys.exit()
+                elif event.key == pg.K_LEFT or event.key == pg.K_a:  # Left
+                    self.board.move_left()
+                elif event.key == pg.K_RIGHT or event.key == pg.K_d:  # Right
+                    mas, delta, is_mas_move = move_right(mas)
+                elif event.key == pg.K_UP or event.key == pg.K_w:  # Up
+                    mas, delta, is_mas_move = move_up(mas)
+                elif event.key == pg.K_DOWN or event.key == pg.K_s:  # Down
+                    mas, delta, is_mas_move = move_down(mas)
+                self.update()
 
     def run(self):
         self.load_game()

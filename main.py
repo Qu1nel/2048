@@ -483,7 +483,7 @@ def game_loop() -> bool:
                     save_game()
                     pygame.quit()
                     sys.exit()
-                elif event.key == 104:  # Menu
+                elif event.key == pygame.K_h:  # Menu
                     insert_result(USERNAME, score)
                     USERNAME = None
                     return True
