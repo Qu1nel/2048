@@ -1,4 +1,7 @@
-class Game2048:
+from interface import Interface
+
+
+class Game2048(Interface):
     def run(self):
         pass
         # self.load_game()
