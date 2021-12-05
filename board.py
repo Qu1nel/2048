@@ -35,7 +35,7 @@ class GameBoard(object):
 
     def move_left(self):
         """Moves the board to the left"""
-        for row in self.get_mas:
+        for row in self:
             while 0 in row:
                 row.remove(0)
             while len(row) != 4:
@@ -47,6 +47,21 @@ class GameBoard(object):
                     self[x][y] *= 2
                     self[x].pop(k + 1)
                     self[x].append(0)
+
+    def move_right(self):
+        """Moves the board to the right"""
+        for row in self:
+            while 0 in row:
+                row.remove(0)
+            while len(row) != 4:
+                row.insert(0, 0)
+
+        for x in range(4):
+            for y in range(3, 0, -1):
+                if self[x][y] != 0 and self[x][y] == self[x][y - 1]:
+                    self[x][y] *= 2
+                    self[x].pop(k - 1)
+                    self[x].insert(0, 0)
 
     @property
     def get_mas(self):
