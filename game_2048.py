@@ -70,13 +70,17 @@ class Game2048(Interface):
                     self.draw_victory()
 
     def run(self):
-        self.load_game()
-        self.draw_main()
-        while self.board.are_there_zeros() and self.board.can_move():
-            self.handle_events()
+        try:
+            self.load_game()
+            self.draw_main()
+            while self.board.are_there_zeros() and self.board.can_move():
+                self.handle_events()
 
-            pg.display.update()
-            self.clock.tick(self.framerate)
+                pg.display.update()
+                self.clock.tick(self.framerate)
+        except Exception as exc:
+            self.save_game()
+            print(exc)
 
 
 def main() -> None:
