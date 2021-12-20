@@ -1,5 +1,5 @@
 import pygame as pg
-
+import sys
 import config
 import database
 from game import Game
@@ -15,6 +15,42 @@ class Interface(Game):
         self.generalFont = config.GENERAL_FONT
         self.adjustment = lambda x, y: len(str(abs(y))) * 8 if x == 25 else len(str(abs(y))) * 7
         self.delta = 0
+
+    def draw_game_over(self):
+        repeat_box = pg.Rect(447, 153, 58, 58)
+
+        blur = pg.Surface((self.width, self.height), pg.SRCALPHA)
+        blur.fill((0, 0, 0, 60))
+        self.screen.blit(blur, (0, 0))
+
+        self.screen.blit(pg.font.Font(
+            self.generalFont, 60).render('Game Over!', True, config.COLORS['WHITE']), (100, 290))
+        pg.draw.rect(self.screen, '#8d8d8d', repeat_box, border_radius=8)
+        round_arrow = pg.image.load("images\\elements\\around_arrow.png")
+        self.screen.blit(pg.transform.scale(round_arrow, (43, 43)), (453, 159))
+        pg.display.update()
+
+        database.insert_result(self.username, self.score)
+        make_decision = False
+        while not make_decision:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:  # Clicked on the cross
+                    self.username = None
+                    pg.quit()
+                    sys.exit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        self.username = None
+                        pg.quit()
+                        sys.exit()
+                    elif event.key == pg.K_RETURN:
+                        self.username = None
+                        make_decision = True
+                    elif event.key == pg.K_BACKSPACE:
+                        make_decision = True
+                elif event.type == pg.MOUSEBUTTONDOWN:
+                    if repeat_box.collidepoint(event.pos):
+                        make_decision = True
 
     def draw_top_gamers(self):
         menu_box = pg.Rect(225, 532, 75, 75)

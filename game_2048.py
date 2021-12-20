@@ -132,15 +132,17 @@ class Game2048(Interface):
 
     def run(self):
         try:
-            self.load_game()
-            if self.username is None:
-                self.draw_menu()
-            self.draw_main()
-            while self.board.are_there_zeros() and self.board.can_move():
-                self.handle_events()
+            while True:
+                self.load_game()
+                if self.username is None:
+                    self.draw_menu()
+                self.draw_main()
+                while self.board.are_there_zeros() and self.board.can_move():
+                    self.handle_events()
 
-                pg.display.update()
-                self.clock.tick(self.framerate)
+                    pg.display.update()
+                    self.clock.tick(self.framerate)
+                self.draw_game_over()
         except Exception as exc:
             self.save_game()
             raise exc

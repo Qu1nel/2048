@@ -21,7 +21,6 @@ class Game(object):
         self.framerate = framerate
         self.width = width
         self.height = height
-        self.game_over = False
         self.victory = False
         self.username = None
         self.score, self.old_score = 0, 0
