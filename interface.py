@@ -13,6 +13,7 @@ class Interface(Game):
         self.size_block = config.SIZE_BLOCK
         self.margin = config.MARGIN
         self.generalFont = config.GENERAL_FONT
+        self.adjustment = lambda x, y: len(str(abs(y))) * 8 if x == 25 else len(str(abs(y))) * 7
 
     def draw_main(self):
         """Draws the main interface"""
@@ -21,18 +22,18 @@ class Interface(Game):
         self.screen.blit(pg.transform.scale(pg.image.load("images\\elements\\arrow.png"), (58, 58)), (374, 154))
         self.screen.blit(pg.transform.scale(pg.image.load("images\\elements\\home.png"), (38, 38)), (314, 162))
 
-        adjustment = lambda x, y: len(str(abs(y))) * 8 if x == 25 else len(str(abs(y))) * 7
-
-        best_score = database.get_best(1)['score']
-        high_score = 0 if best_score == -1 else best_score
-        size_score, size_high_score = get_size_font(self.score, high_score)  # Variable size of the font
         self.screen.blit(
             pg.font.Font(self.generalFont, 17).render('HIGH SCORE', True, config.COLORS['GRAY']), (402, 55))
         self.screen.blit(pg.font.Font(self.generalFont, 18).render('SCORE', True, config.COLORS['GRAY']), (300, 55))
         self.screen.blit(pg.font.Font(self.generalFont, 86).render('2048', True, config.COLORS['WHITE']), (30, 2))
 
-        # result = adjustment(size_score, scr)  # substitution for number score
-        # screen.blit(get_font(size_score, GEN_FONT).render(f'{scr}', True, COLORS['WHITE']), (317 - result, 77))
+        best_score = database.get_best(1)['score']
+        high_score = 0 if best_score == -1 else best_score
+        size_score, size_high_score = get_size_font(self.score, high_score)  # Variable size of the font
+        correct = self.adjustment(size_score, self.score)  # substitution for number score
+
+        self.screen.blit(pg.font.Font(
+            self.generalFont, size_score).render(f'{self.score}', True, config.COLORS['WHITE']), (325 - correct, 77))
         #
         # result = adjustment(size_high_score, high_score)  # substitution for number high score
         # screen.blit(get_font(size_high_score, GEN_FONT).render(f'{high_score}', True, COLORS['WHITE']),

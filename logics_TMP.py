@@ -1,6 +1,10 @@
 import pygame as pg
 
 
+def quick_copy(mas: list) -> list:
+    return [[value for value in row] for row in mas]
+
+
 def get_index_from_number(num: int) -> tuple[int, int]:
     """Returns a tuple with indices based on the board cell number"""
     num -= 1

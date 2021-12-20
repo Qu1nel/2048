@@ -34,7 +34,7 @@ class GameBoard(object):
     def __iter__(self):
         return iter(self.__mas)
 
-    def move_left(self):
+    def move_left(self, game):
         """Moves the board to the left"""
         origin = copy.deepcopy(self.get_mas)
         for row in self:
@@ -47,11 +47,12 @@ class GameBoard(object):
             for y in range(3):
                 if self[x][y] != 0 and self[x][y] == self[x][y + 1]:
                     self[x][y] *= 2
+                    game.score += self[x][y]
                     self[x].pop(y + 1)
                     self[x].append(0)
         self.is_board_move = not origin == self.get_mas
 
-    def move_right(self):
+    def move_right(self, game):
         """Moves the board to the right"""
         origin = copy.deepcopy(self.get_mas)
         for row in self:
@@ -64,11 +65,12 @@ class GameBoard(object):
             for y in range(3, 0, -1):
                 if self[x][y] != 0 and self[x][y] == self[x][y - 1]:
                     self[x][y] *= 2
+                    game.score += self[x][y]
                     self[x].pop(y - 1)
                     self[x].insert(0, 0)
         self.is_board_move = not origin == self.get_mas
 
-    def move_up(self):
+    def move_up(self, game):
         """Moves the board to the up"""
         origin = copy.deepcopy(self.get_mas)
         for y in range(4):
@@ -81,13 +83,14 @@ class GameBoard(object):
             for x in range(3):
                 if column[x] != 0 and column[x] == column[x + 1]:
                     column[x] *= 2
+                    game.score += column[x]
                     column.pop(x + 1)
                     column.append(0)
             for x in range(4):
                 self[x][y] = column[x]
         self.is_board_move = not origin == self.get_mas
 
-    def move_down(self):
+    def move_down(self, game):
         """Moves the board to the down"""
         origin = copy.deepcopy(self.get_mas)
         for y in range(4):
@@ -100,6 +103,7 @@ class GameBoard(object):
             for x in range(3, 0, -1):
                 if column[x] != 0 and column[x] == column[x - 1]:
                     column[x] *= 2
+                    game.score += column[x]
                     column.pop(x - 1)
                     column.insert(0, 0)
             for x in range(4):

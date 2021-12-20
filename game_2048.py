@@ -52,13 +52,13 @@ class Game2048(Interface):
                     pygame.quit()
                     sys.exit()
                 elif event.key == pg.K_LEFT or event.key == pg.K_a:  # Left
-                    self.board.move_left()
+                    self.board.move_left(self)
                 elif event.key == pg.K_RIGHT or event.key == pg.K_d:  # Right
-                    self.board.move_right()
+                    self.board.move_right(self)
                 elif event.key == pg.K_UP or event.key == pg.K_w:  # Up
-                    self.board.move_up()
+                    self.board.move_up(self)
                 elif event.key == pg.K_DOWN or event.key == pg.K_s:  # Down
-                    self.board.move_down()
+                    self.board.move_down(self)
                 self.update()
 
     def run(self):
