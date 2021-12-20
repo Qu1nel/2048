@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from abc import abstractmethod
-from typing import Union
 
 import pygame as pg
 
@@ -10,7 +11,7 @@ class Game(object):
     width: int
     height: int
     icon: str  # path to image
-    framerate: Union[int, float]
+    framerate: int | float
 
     def __init__(self, caption, width, height, icon, framerate=60):
         pg.init()

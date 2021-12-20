@@ -21,14 +21,14 @@ class Game2048(Interface):
         self.position = None
 
     def put_name(self) -> None:
-        def _render(self) -> None:
+        def _render(game) -> None:
             name_bg = pg.image.load("images\\BG\\input_username.jpg")
             menu = pg.image.load("images\\elements\\home.png")
-            self.screen.blit(pg.font.Font(
-                self.generalFont, 120).render('2048', True, config.COLORS['WHITE']), (108, 60))
-            self.screen.blit(name_bg, (0, 0))
-            self.screen.blit(pg.transform.scale(menu, [50, 50]), (236, 494))
-            self.screen.blit(pg.font.Font(self.generalFont, 45).render('OK', True, config.COLORS['WHITE']), (229, 371))
+            game.screen.blit(pg.font.Font(
+                game.generalFont, 120).render('2048', True, config.COLORS['WHITE']), (108, 60))
+            game.screen.blit(name_bg, (0, 0))
+            game.screen.blit(pg.transform.scale(menu, [50, 50]), (236, 494))
+            game.screen.blit(pg.font.Font(game.generalFont, 45).render('OK', True, config.COLORS['WHITE']), (229, 371))
 
         active_colour = '#013df2'
         inactive_colour = '#33346b'

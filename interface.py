@@ -1,5 +1,8 @@
-import pygame as pg
 import sys
+from abc import abstractmethod
+
+import pygame as pg
+
 import config
 import database
 from game import Game
@@ -7,6 +10,7 @@ from logics import get_const_4_cell, get_size_font
 
 
 class Interface(Game):
+
     def __init__(self):
         super().__init__(config.CAPTION, config.WIDTH, config.HEIGHT, config.ICON, config.FRAMERATE)
         self.blocks = config.BLOCKS
@@ -107,11 +111,11 @@ class Interface(Game):
         while True:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
-                    pygame.quit()
+                    pg.quit()
                     sys.exit()
                 elif event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
-                        pygame.quit()
+                        pg.quit()
                         sys.exit()
                     elif event.key == pg.K_BACKSPACE:
                         self.draw_menu()
@@ -230,3 +234,18 @@ class Interface(Game):
                     text_x = w + (self.size_block - font_w) / 2
                     text_y = h + (self.size_block - font_h) / 2 - 6
                     self.screen.blit(text, (text_x, text_y))
+
+    @abstractmethod
+    def update(self) -> None:
+        """Updating the game status"""
+        pass
+
+    @abstractmethod
+    def handle_events(self) -> None:
+        """Handles actions entered by the player"""
+        pass
+
+    @abstractmethod
+    def run(self) -> None:
+        """Launches the game"""
+        pass
