@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from typing import Union
 
-import pygame
+import pygame as pg
 
 
 class Game(object):
@@ -13,15 +13,16 @@ class Game(object):
     framerate: Union[int, float]
 
     def __init__(self, caption, width, height, icon, framerate=60):
-        pygame.init()
-        pygame.display.set_caption(caption)
-        pygame.display.set_icon(pygame.image.load(icon))
-        self.screen = pygame.display.set_mode((width, height))
-        self.clock = pygame.time.Clock()
+        pg.init()
+        pg.display.set_caption(caption)
+        pg.display.set_icon(pg.image.load(icon))
+        self.screen = pg.display.set_mode((width, height))
+        self.clock = pg.time.Clock()
         self.framerate = framerate
         self.width = width
         self.height = height
         self.game_over = False
+        self.score, self.old_score = 0, 0
 
     @abstractmethod
     def update(self) -> None:
@@ -34,10 +35,6 @@ class Game(object):
         pass
 
     @abstractmethod
-    def restart(self) -> None:
-        """Launches a new game"""
-        pass
-
     def run(self) -> None:
         """Launches the game"""
         pass

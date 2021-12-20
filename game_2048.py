@@ -14,7 +14,6 @@ class Game2048(Interface):
         super().__init__()
         self.board = GameBoard()
         self.copy_board = None
-        self.score, self.old_score = None, None
         self.username = None
 
     def load_game(self):

@@ -1,11 +1,12 @@
+from __future__ import annotations
+
 import sqlite3
 from sqlite3 import Cursor
-from typing import Union
 
 __all__ = ['get_best', 'insert_result', 'cursor']
 
 
-def get_best(count: int = 0) -> dict[int: tuple[Union[None, str], int]]:
+def get_best(count: int = 0) -> dict[int: tuple[None | str], int]:
     """ Returns the result of the top 3 players. """
     try:
         assert -1 <= count <= 3

@@ -1,6 +1,6 @@
 import copy
 from random import random, shuffle, randint
-from typing import Any
+from typing import Any, Union
 
 from logics_TMP import get_index_from_number, get_number_from_index
 
@@ -28,7 +28,7 @@ class GameBoard(object):
     def __getitem__(self, item: int) -> list:
         return self.__mas[item]
 
-    def __setitem__(self, key: int, value: Any):
+    def __setitem__(self, key: int, value: Any) -> Union[list, int]:
         self.__mas[key] = value
 
     def __iter__(self):
