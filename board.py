@@ -1,7 +1,7 @@
 from random import random, shuffle, randint
 from typing import Any, Union
 
-from logics_TMP import get_index_from_number, get_number_from_index, quick_copy
+from logics import get_index_from_number, get_number_from_index, quick_copy
 
 
 class GameBoard(object):

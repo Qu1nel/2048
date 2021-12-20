@@ -3,7 +3,7 @@ import sys
 import config
 import database
 from game import Game
-from logics_TMP import get_const_4_cell, get_size_font
+from logics import get_const_4_cell, get_size_font
 
 
 class Interface(Game):

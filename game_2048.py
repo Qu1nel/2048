@@ -8,7 +8,7 @@ import config
 import database
 from board import GameBoard
 from interface import Interface
-from logics_TMP import quick_copy, get_side
+from logics import quick_copy, get_side
 
 
 class Game2048(Interface):
