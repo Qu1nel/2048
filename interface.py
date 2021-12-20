@@ -16,6 +16,75 @@ class Interface(Game):
         self.adjustment = lambda x, y: len(str(abs(y))) * 8 if x == 25 else len(str(abs(y))) * 7
         self.delta = 0
 
+    def draw_top_gamers(self):
+        menu_box = pg.Rect(225, 532, 75, 75)
+        ALL_PLAYERS = database.get_best()
+
+        backGround_with_crown = "images\\BG\\rating.jpg"
+        backGround_without_crown = "images\\BG\\rating_nothing.jpg"
+        path_bg = backGround_with_crown if database.get_best(1)['name'] is not None else backGround_without_crown
+        rating_bg = pg.image.load(path_bg)
+        menu = pg.image.load("images\\elements\\home.png")
+        self.screen.blit(rating_bg, (0, 0))
+        self.screen.blit(pg.transform.scale(menu, (50, 50)), (236, 543))
+
+        self.screen.blit(pg.font.Font(self.generalFont, 120).render('Rating', True, config.COLORS['WHITE']), (86, -50))
+
+        for id, player in ALL_PLAYERS.items():
+            if player['name'] is None:
+                self.screen.blit(pg.font.Font(
+                    self.generalFont, 45).render('Nothing', True, config.COLORS['WHITE']), (180, 115 + 100 * id))
+            else:
+                name = pg.font.Font(self.generalFont, 40).render(player['name'] + ':', True, config.COLORS['WHITE'])
+                if name.get_width() > 154:
+                    S = player['name'] + ':'
+                    self.screen.blit(pg.font.Font(
+                        self.generalFont, 28).render(S, True, config.COLORS['WHITE']), (117, 135 + 100 * id))
+                    size_font = 35
+                    score_txt = pg.font.Font(
+                        self.generalFont, size_font).render(str(player['score']), True, config.COLORS['WHITE'])
+                    while 289 - name.get_width() + 20 + score_txt.get_width() - 117 > 309:
+                        score_txt = pg.font.Font(
+                            self.generalFont, size_font).render(str(player['score']), True, config.COLORS['WHITE'])
+                        size_font -= 2
+                    y = 128 if size_font == 35 else 133
+                    x = pg.font.Font(self.generalFont, 28).render(player['name'] + ':',
+                                                                  True, config.COLORS['WHITE']).get_width() + 127
+                    direct_x = (406 - x) // 2 - score_txt.get_width() // 2
+                else:
+                    self.screen.blit(name, (117, 124 + 100 * id))
+                    size_font = 35
+                    score_txt = pg.font.Font(self.generalFont, size_font).render(str(player['score']),
+                                                                                 True, config.COLORS['WHITE'])
+                    while 289 - name.get_width() + 20 + score_txt.get_width() - 117 > 309:
+                        score_txt = pg.font.Font(self.generalFont, size_font).render(str(player['score']),
+                                                                                     True, config.COLORS['WHITE'])
+                        size_font -= 2
+                    y = 128 if size_font == 35 else 133
+                    x = name.get_width() + 127
+                    direct_x = (406 - x) // 2 - score_txt.get_width() // 2
+
+                self.screen.blit(score_txt, (x + direct_x, y + 100 * id))
+
+        pg.display.update()
+
+        while True:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
+                    elif event.key == pg.K_BACKSPACE:
+                        self.draw_menu()
+                        return None
+                elif event.type == pg.MOUSEBUTTONDOWN:
+                    if menu_box.collidepoint(event.pos):
+                        self.draw_menu()
+                        return None
+
     def draw_menu(self):
         play_box = pg.Rect(118, 283, 289, 80)
         rating_box = pg.Rect(118, 383, 289, 80)

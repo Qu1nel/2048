@@ -3,6 +3,7 @@ import os
 import sys
 
 import pygame as pg
+
 import config
 from board import GameBoard
 from interface import Interface
@@ -14,9 +15,6 @@ class Game2048(Interface):
         super().__init__()
         self.board = GameBoard()
         self.copy_board = None
-
-    def draw_top_gamers(self):
-        pass
 
     def put_name(self) -> None:
         def _render(self) -> None:
