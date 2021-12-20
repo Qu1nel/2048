@@ -2,7 +2,7 @@ import copy
 from random import random, shuffle, randint
 from typing import Any, Union
 
-from logics_TMP import get_index_from_number, get_number_from_index
+from logics_TMP import get_index_from_number, get_number_from_index, quick_copy
 
 
 class GameBoard(object):
@@ -36,7 +36,8 @@ class GameBoard(object):
 
     def move_left(self, game):
         """Moves the board to the left"""
-        origin = copy.deepcopy(self.get_mas)
+        origin = quick_copy(self.get_mas)
+        game.delta = 0
         for row in self:
             while 0 in row:
                 row.remove(0)
@@ -48,13 +49,15 @@ class GameBoard(object):
                 if self[x][y] != 0 and self[x][y] == self[x][y + 1]:
                     self[x][y] *= 2
                     game.score += self[x][y]
+                    game.delta += self[x][y]
                     self[x].pop(y + 1)
                     self[x].append(0)
         self.is_board_move = not origin == self.get_mas
 
     def move_right(self, game):
         """Moves the board to the right"""
-        origin = copy.deepcopy(self.get_mas)
+        origin = quick_copy(self.get_mas)
+        game.delta = 0
         for row in self:
             while 0 in row:
                 row.remove(0)
@@ -66,13 +69,15 @@ class GameBoard(object):
                 if self[x][y] != 0 and self[x][y] == self[x][y - 1]:
                     self[x][y] *= 2
                     game.score += self[x][y]
+                    game.delta += self[x][y]
                     self[x].pop(y - 1)
                     self[x].insert(0, 0)
         self.is_board_move = not origin == self.get_mas
 
     def move_up(self, game):
         """Moves the board to the up"""
-        origin = copy.deepcopy(self.get_mas)
+        origin = quick_copy(self.get_mas)
+        game.delta = 0
         for y in range(4):
             column = []
             for x in range(4):
@@ -84,6 +89,7 @@ class GameBoard(object):
                 if column[x] != 0 and column[x] == column[x + 1]:
                     column[x] *= 2
                     game.score += column[x]
+                    game.delta += column[x]
                     column.pop(x + 1)
                     column.append(0)
             for x in range(4):
@@ -92,7 +98,8 @@ class GameBoard(object):
 
     def move_down(self, game):
         """Moves the board to the down"""
-        origin = copy.deepcopy(self.get_mas)
+        origin = quick_copy(self.get_mas)
+        game.delta = 0
         for y in range(4):
             column = []
             for x in range(4):
@@ -104,6 +111,7 @@ class GameBoard(object):
                 if column[x] != 0 and column[x] == column[x - 1]:
                     column[x] *= 2
                     game.score += column[x]
+                    game.delta += column[x]
                     column.pop(x - 1)
                     column.insert(0, 0)
             for x in range(4):

@@ -14,6 +14,7 @@ class Interface(Game):
         self.margin = config.MARGIN
         self.generalFont = config.GENERAL_FONT
         self.adjustment = lambda x, y: len(str(abs(y))) * 8 if x == 25 else len(str(abs(y))) * 7
+        self.delta = 0
 
     def draw_main(self):
         """Draws the main interface"""
@@ -30,17 +31,21 @@ class Interface(Game):
         best_score = database.get_best(1)['score']
         high_score = 0 if best_score == -1 else best_score
         size_score, size_high_score = get_size_font(self.score, high_score)  # Variable size of the font
-        correct = self.adjustment(size_score, self.score)  # substitution for number score
 
+        correct = self.adjustment(size_score, self.score)  # substitution for number score
         self.screen.blit(pg.font.Font(
             self.generalFont, size_score).render(f'{self.score}', True, config.COLORS['WHITE']), (325 - correct, 77))
-        #
-        # result = adjustment(size_high_score, high_score)  # substitution for number high score
-        # screen.blit(get_font(size_high_score, GEN_FONT).render(f'{high_score}', True, COLORS['WHITE']),
-        #             (440 - result, 77))
-        # if delta > 0:
-        #     adjustment = len(str(abs(delta))) * 14  # substitution for number delta
-        #     screen.blit(get_font(34, GEN_FONT).render(f'+{delta}', True, COLORS['WHITE']), (115 - adjustment, 160))
+
+        correct = self.adjustment(size_high_score, high_score)  # substitution for number high score
+        self.screen.blit(
+            pg.font.Font(self.generalFont, size_high_score).render(f'{high_score}', True, config.COLORS['WHITE']),
+            (440 - correct, 77))
+
+        if self.delta > 0:
+            correct = len(str(abs(self.delta))) * 14  # substitution for number delta
+            self.screen.blit(
+                pg.font.Font(self.generalFont, 34).render(f'+{self.delta}', True, config.COLORS['WHITE']),
+                (115 - correct, 160))
 
         for row in range(self.blocks):  # Building cells
             for column in range(self.blocks):
