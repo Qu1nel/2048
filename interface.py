@@ -26,10 +26,11 @@ class Interface(Game):
         best_score = database.get_best(1)['score']
         high_score = 0 if best_score == -1 else best_score
         size_score, size_high_score = get_size_font(self.score, high_score)  # Variable size of the font
+        self.screen.blit(
+            pg.font.Font(self.generalFont, 17).render('HIGH SCORE', True, config.COLORS['GRAY']), (402, 55))
         self.screen.blit(pg.font.Font(self.generalFont, 18).render('SCORE', True, config.COLORS['GRAY']), (300, 55))
-        # screen.blit(get_font(17, GEN_FONT).render('HIGH SCORE', True, COLORS['GRAY']), (402, 55))  # Text high score
-        # screen.blit(get_font(86, GEN_FONT).render('2048', True, COLORS['WHITE']), (30, 2))  # Text for 2048
-        #
+        self.screen.blit(pg.font.Font(self.generalFont, 86).render('2048', True, config.COLORS['WHITE']), (30, 2))
+
         # result = adjustment(size_score, scr)  # substitution for number score
         # screen.blit(get_font(size_score, GEN_FONT).render(f'{scr}', True, COLORS['WHITE']), (317 - result, 77))
         #
