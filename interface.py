@@ -16,6 +16,33 @@ class Interface(Game):
         self.adjustment = lambda x, y: len(str(abs(y))) * 8 if x == 25 else len(str(abs(y))) * 7
         self.delta = 0
 
+    def draw_victory(self):
+        if not self.victory:
+            blur = pg.Surface((self.width, self.height), pg.SRCALPHA)
+            blur.fill((0, 0, 0, 85))
+            self.screen.blit(blur, (0, 0))
+
+            font_H1 = pg.font.Font(self.generalFont, 90)
+            text_H1 = font_H1.render('You Win!', True, config.COLORS['WHITE'])
+            self.screen.blit(text_H1, (self.width // 2 - text_H1.get_size()[0] // 2, 330))
+            font_H3 = pg.font.Font(self.generalFont, 35)
+            text_H3 = font_H3.render('Click any button to Continue', True, config.COLORS['WHITE'])
+            self.screen.blit(text_H3, (self.width // 2 - text_H3.get_size()[0] // 2, 455))
+
+            pg.display.update()
+
+            running = True
+            while running:
+                for event in pg.event.get():
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        self.update()
+                        running = False
+                    if event.type == pg.KEYDOWN:
+                        self.update()
+                        running = False
+
+            self.victory = True
+
     def draw_main(self):
         """Draws the main interface"""
         self.screen.blit(pg.transform.scale(pg.image.load("images\\BG\\BG.jpg"), (self.width, self.height + 2)), (0, 0))

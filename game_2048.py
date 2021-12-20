@@ -40,6 +40,12 @@ class Game2048(Interface):
         self.draw_main()
         pg.display.update()
 
+    def is_victory(self) -> bool:
+        for row in self.board:
+            if 2048 in row:
+                return True
+        return False
+
     def handle_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -60,6 +66,8 @@ class Game2048(Interface):
                 elif event.key == pg.K_DOWN or event.key == pg.K_s:  # Down
                     self.board.move_down(self)
                 self.update()
+                if self.is_victory():
+                    self.draw_victory()
 
     def run(self):
         self.load_game()

@@ -22,6 +22,7 @@ class Game(object):
         self.width = width
         self.height = height
         self.game_over = False
+        self.victory = False
         self.score, self.old_score = 0, 0
 
     @abstractmethod
