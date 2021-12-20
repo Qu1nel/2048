@@ -209,7 +209,7 @@ class Interface(Game):
         correct = self.adjustment(size_high_score, high_score)  # substitution for number high score
         self.screen.blit(
             pg.font.Font(self.generalFont, size_high_score).render(f'{high_score}', True, config.COLORS['WHITE']),
-            (440 - correct, 77))
+            (447 - correct, 77))
 
         if self.delta > 0:
             correct = len(str(abs(self.delta))) * 14  # substitution for number delta

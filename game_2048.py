@@ -5,8 +5,10 @@ import sys
 import pygame as pg
 
 import config
+import database
 from board import GameBoard
 from interface import Interface
+from logics_TMP import quick_copy, get_side
 
 
 class Game2048(Interface):
@@ -15,6 +17,8 @@ class Game2048(Interface):
         super().__init__()
         self.board = GameBoard()
         self.copy_board = None
+        self.move_mouse = False
+        self.position = None
 
     def put_name(self) -> None:
         def _render(self) -> None:
@@ -107,24 +111,114 @@ class Game2048(Interface):
                 return True
         return False
 
+    def around_arrow(self):
+        cancel_box = pg.Rect(145, 415, 150, 70)
+        repeat_box = pg.Rect(305, 415, 150, 70)
+
+        blur = pg.Surface((self.width, self.height), pg.SRCALPHA)
+        blur.fill((0, 0, 0, 140))
+        self.screen.blit(blur, (0, 0))
+
+        self.screen.blit(pg.font.Font(
+            self.generalFont, 53).render('Reset game?', True, config.COLORS['WHITE']), (60, 200))
+        font_H3 = pg.font.Font(self.generalFont, 32)
+        self.screen.blit(font_H3.render('Are you sure you wish to', True, config.COLORS['WHITE']), (60, 300))
+        self.screen.blit(font_H3.render('reset the game?', True, config.COLORS['WHITE']), (60, 340))
+
+        pg.draw.rect(self.screen, (110, 110, 110), cancel_box, border_radius=12)
+        self.screen.blit(font_H3.render('Cancel', True, config.COLORS['WHITE']), (174, 413))
+
+        pg.draw.rect(self.screen, (110, 110, 110), repeat_box, border_radius=12)
+        self.screen.blit(font_H3.render('Reset', True, config.COLORS['WHITE']), (341, 413))
+        pg.display.update()
+
+        make_decision = False
+        while not make_decision:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    save_game()
+                    pg.quit()
+                    sys.exit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_BACKSPACE or event.key == pg.K_ESCAPE:  # cancel
+                        self.update()
+                        make_decision = True
+                    elif event.key == pg.K_RETURN:  # reset
+                        super().__init__()
+                        self.board = GameBoard()
+                        self.copy_board = None
+                        self.update()
+                        make_decision = True
+                elif event.type == pg.MOUSEBUTTONDOWN:
+                    if cancel_box.collidepoint(event.pos):  # cancel
+                        self.update()
+                        make_decision = True
+                    elif repeat_box.collidepoint(event.pos):  # reset
+                        super().__init__()
+                        self.board = GameBoard()
+                        self.copy_board = None
+                        self.update()
+                        make_decision = True
+
+    def back_arrow(self) -> None:
+        if self.copy_board is not None and self.copy_board != self.board.get_mas:
+            self.board.get_mas = quick_copy(self.copy_board)
+            self.score = self.old_score
+            self.draw_main()
+            pg.display.update()
+
     def handle_events(self):
+        repeat_box = pg.Rect(447, 153, 58, 58)
+        menu_box = pg.Rect(305, 153, 58, 58)
+        back_arrow_box = pg.Rect(376, 153, 58, 58)
+        play_ground = pg.Rect(15, 225, 488, 488)
+
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.save_game()
                 pg.quit()
                 sys.exit()
+            elif event.type == pg.MOUSEBUTTONDOWN:  # Clicked on the mouse button
+                if menu_box.collidepoint(event.pos):  # Menu
+                    database.insert_result(self.username, self.score)
+                    self.username = None
+                    return True
+                elif back_arrow_box.collidepoint(event.pos):  # Back arrow
+                    self.back_arrow()
+                elif repeat_box.collidepoint(event.pos):  # Encapsulated arrow
+                    self.around_arrow()
+                elif play_ground.collidepoint(event.pos):  # Swipe mouse part 1
+                    self.move_mouse = True
+                    self.position = event.pos
+            elif event.type == pg.MOUSEBUTTONUP:  # Released the mouse button
+                if self.move_mouse:  # Swipe mouse part 2
+                    self.move_mouse = False
+                    if self.position != event.pos:
+                        source_swipe = get_side(self.position, event.pos)
+                        if source_swipe[1] > 30:
+                            command_side = {'UP': self.board.move_up, 'DOWN': self.board.move_down,
+                                            'LEFT': self.board.move_left, 'RIGHT': self.board.move_right}
+                            self.copy_board = quick_copy(self.board.get_mas)
+                            command_side[source_swipe[0]](self)
+                            self.update()
+                            if self.is_victory():
+                                self.draw_victory()
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     save_game()
-                    pygame.quit()
+                    pg.quit()
                     sys.exit()
                 elif event.key == pg.K_LEFT or event.key == pg.K_a:  # Left
+                    self.copy_board = quick_copy(self.board.get_mas)
                     self.board.move_left(self)
                 elif event.key == pg.K_RIGHT or event.key == pg.K_d:  # Right
+                    self.copy_board = quick_copy(self.board.get_mas)
                     self.board.move_right(self)
                 elif event.key == pg.K_UP or event.key == pg.K_w:  # Up
+                    self.copy_board = quick_copy(self.board.get_mas)
                     self.board.move_up(self)
                 elif event.key == pg.K_DOWN or event.key == pg.K_s:  # Down
+                    self.copy_board = quick_copy(self.board.get_mas)
                     self.board.move_down(self)
                 self.update()
                 if self.is_victory():
@@ -138,11 +232,13 @@ class Game2048(Interface):
                     self.draw_menu()
                 self.draw_main()
                 while self.board.are_there_zeros() and self.board.can_move():
-                    self.handle_events()
-
+                    pg.display.update()
+                    if self.handle_events():
+                        break
                     pg.display.update()
                     self.clock.tick(self.framerate)
-                self.draw_game_over()
+                else:
+                    self.draw_game_over()
         except Exception as exc:
             self.save_game()
             raise exc

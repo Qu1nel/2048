@@ -1,6 +1,32 @@
 import pygame as pg
 
 
+class Point:
+    __slots__ = ('_x', '_y')
+
+    def __init__(self, x: int, y: int):
+        self._x = x
+        self._y = y
+
+    def get_side(self) -> str:
+        if self._x > 0 and self._y >= 0:  # 1st quarter
+            if self._x == self._y or self._x < self._y:
+                return 'UP'
+            return 'RIGHT'
+        if self._x <= 0 < self._y:  # 2nd quarter
+            if abs(self._x) == self._y or abs(self._x) > self._y:
+                return 'LEFT'
+            return 'UP'
+        if self._x < 0 and self._y <= 0:  # 3rd quarter
+            if self._x == self._y or abs(self._x) < abs(self._y):
+                return 'DOWN'
+            return 'LEFT'
+        if self._y < 0 <= self._x:  # 4th quarter
+            if self._x == abs(self._y) or self._x > abs(self._y):
+                return 'RIGHT'
+            return 'DOWN'
+
+
 def quick_copy(mas: list) -> list:
     return [[value for value in row] for row in mas]
 
@@ -9,6 +35,17 @@ def get_index_from_number(num: int) -> tuple[int, int]:
     """Returns a tuple with indices based on the board cell number"""
     num -= 1
     return num // 4, num % 4
+
+
+def get_side(dot_one: tuple, dot_two: tuple) -> tuple[str, int]:
+    """Returns the main side of the swipe. top, bottom, left, right + distance"""
+    x = dot_two[0] - dot_one[0]
+    y = dot_one[1] - dot_two[1]
+    distance = (x ** 2 + y ** 2) ** 0.5
+    point = Point(x, y)
+    print(f'x ={x} y={y}', distance)
+    result_side = point.get_side()
+    return result_side, distance
 
 
 def get_number_from_index(x: int, y: int) -> int:

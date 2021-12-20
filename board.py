@@ -1,4 +1,3 @@
-import copy
 from random import random, shuffle, randint
 from typing import Any, Union
 
@@ -48,6 +47,7 @@ class GameBoard(object):
             for y in range(3):
                 if self[x][y] != 0 and self[x][y] == self[x][y + 1]:
                     self[x][y] *= 2
+                    game.old_score = game.score
                     game.score += self[x][y]
                     game.delta += self[x][y]
                     self[x].pop(y + 1)
@@ -68,6 +68,7 @@ class GameBoard(object):
             for y in range(3, 0, -1):
                 if self[x][y] != 0 and self[x][y] == self[x][y - 1]:
                     self[x][y] *= 2
+                    game.old_score = game.score
                     game.score += self[x][y]
                     game.delta += self[x][y]
                     self[x].pop(y - 1)
@@ -88,6 +89,7 @@ class GameBoard(object):
             for x in range(3):
                 if column[x] != 0 and column[x] == column[x + 1]:
                     column[x] *= 2
+                    game.old_score = game.score
                     game.score += column[x]
                     game.delta += column[x]
                     column.pop(x + 1)
@@ -110,6 +112,7 @@ class GameBoard(object):
             for x in range(3, 0, -1):
                 if column[x] != 0 and column[x] == column[x - 1]:
                     column[x] *= 2
+                    game.old_score = game.score
                     game.score += column[x]
                     game.delta += column[x]
                     column.pop(x - 1)
@@ -121,6 +124,10 @@ class GameBoard(object):
     @property
     def get_mas(self):
         return self.__mas
+
+    @get_mas.setter
+    def get_mas(self, value):
+        self.__mas = value
 
     def are_there_zeros(self) -> bool:
         """Checks if there is a 0 in the board"""
