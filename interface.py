@@ -16,6 +16,44 @@ class Interface(Game):
         self.adjustment = lambda x, y: len(str(abs(y))) * 8 if x == 25 else len(str(abs(y))) * 7
         self.delta = 0
 
+    def draw_menu(self):
+        play_box = pg.Rect(118, 283, 289, 80)
+        rating_box = pg.Rect(118, 383, 289, 80)
+
+        start_bg = pg.image.load("images\\BG\\menu.jpg")
+        self.screen.blit(start_bg, (0, 0))
+
+        font = pg.font.Font(self.generalFont, 45)
+        self.screen.blit(pg.font.Font(self.generalFont, 120).render('2048', True, config.COLORS['WHITE']), (108, 60))
+        self.screen.blit(font.render('PLAY', True, config.COLORS['WHITE']), (210, 270))
+        self.screen.blit(font.render('RATING', True, config.COLORS['WHITE']), (186, 370))
+
+        pg.display.update()
+
+        pressed_button = False
+        while not pressed_button:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    sys.exit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        pg.quit()
+                        sys.exit()
+                    elif event.key == pg.K_RETURN:
+                        self.put_name()
+                        pressed_button = True
+                    elif event.key == 114:
+                        self.draw_top_gamers()
+                        pressed_button = True
+                elif event.type == pg.MOUSEBUTTONDOWN:
+                    if play_box.collidepoint(event.pos):
+                        self.put_name()
+                        pressed_button = True
+                    elif rating_box.collidepoint(event.pos):
+                        self.draw_top_gamers()
+                        pressed_button = True
+
     def draw_victory(self):
         if not self.victory:
             blur = pg.Surface((self.width, self.height), pg.SRCALPHA)

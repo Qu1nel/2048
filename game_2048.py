@@ -3,7 +3,7 @@ import os
 import sys
 
 import pygame as pg
-
+import config
 from board import GameBoard
 from interface import Interface
 
@@ -14,7 +14,70 @@ class Game2048(Interface):
         super().__init__()
         self.board = GameBoard()
         self.copy_board = None
-        self.username = None
+
+    def draw_top_gamers(self):
+        pass
+
+    def put_name(self) -> None:
+        def _render(self) -> None:
+            name_bg = pg.image.load("images\\BG\\input_username.jpg")
+            menu = pg.image.load("images\\elements\\home.png")
+            self.screen.blit(pg.font.Font(
+                self.generalFont, 120).render('2048', True, config.COLORS['WHITE']), (108, 60))
+            self.screen.blit(name_bg, (0, 0))
+            self.screen.blit(pg.transform.scale(menu, [50, 50]), (236, 494))
+            self.screen.blit(pg.font.Font(self.generalFont, 45).render('OK', True, config.COLORS['WHITE']), (229, 371))
+
+        active_colour = '#013df2'
+        inactive_colour = '#33346b'
+        ok_box = pg.Rect(118, 383, 289, 80)
+        input_box = pg.Rect(118, 283, 289, 80)
+        menu_box = pg.Rect(225, 483, 75, 75)
+
+        _render(self)
+        font_input = pg.font.Font(self.generalFont, 48)
+        pg.draw.rect(self.screen, color := inactive_colour, input_box, 1, border_radius=15)
+        pg.display.update()
+
+        name = ''
+        active = False
+        input_name = False
+        while not input_name:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    sys.exit()
+                elif event.type == pg.MOUSEBUTTONDOWN:
+                    active = True if input_box.collidepoint(event.pos) else False
+                    if ok_box.collidepoint(event.pos):
+                        if len(name) >= 3:
+                            self.username = name
+                            input_name = True
+                    elif menu_box.collidepoint(event.pos):
+                        self.draw_menu()
+                        return None
+                    color = active_colour if active else inactive_colour
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        pg.quit()
+                        sys.exit()
+                    if active:
+                        if event.key == pg.K_RETURN:
+                            if len(name) >= 3:
+                                self.username = name
+                                input_name = True
+                        elif event.key == pg.K_BACKSPACE:
+                            name = name[:-1]
+                        else:
+                            if font_input.render(name, True, config.COLORS['WHITE']).get_width() < 261:
+                                name += event.unicode
+            _render(self)
+            if name == '' and color == inactive_colour:
+                self.screen.blit(font_input.render('Username', True, config.COLORS['GRAY']), (155, 267))
+            txt = font_input.render(name, True, config.COLORS['WHITE'])
+            pg.draw.rect(self.screen, color, input_box, 1, border_radius=15)
+            self.screen.blit(txt, (input_box.w - txt.get_width() // 2 - 26, 267))
+            pg.display.update()
 
     def load_game(self):
         path = os.getcwd()
@@ -72,6 +135,8 @@ class Game2048(Interface):
     def run(self):
         try:
             self.load_game()
+            if self.username is None:
+                self.draw_menu()
             self.draw_main()
             while self.board.are_there_zeros() and self.board.can_move():
                 self.handle_events()
@@ -80,7 +145,7 @@ class Game2048(Interface):
                 self.clock.tick(self.framerate)
         except Exception as exc:
             self.save_game()
-            print(exc)
+            raise exc
 
 
 def main() -> None:
