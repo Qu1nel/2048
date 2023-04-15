@@ -5,14 +5,16 @@
 <p align="center">
    <img src="https://img.shields.io/badge/Python-3.9%2B-blueviolet" alt="Python Version">
    <img src="https://img.shields.io/github/v/release/Qu1nel/2048" alt="Version">
-   <img src="https://img.shields.io/github/license/Qu1nel/2048?color=brightgreen" alt="License">
+   <img src="https://img.shields.io/github/license/Qu1nel/2048" alt="License" />
 </p>
 
 ## About 2048
 
 First project after 2.5 months of learning Python
 
-Game 2048 written in Python, pygame module. Also used SQLite for the database of players and their results
+Game 2048 written in Python, pygame module. Also used SQLite for the database of players and their results.
+
+Maybe I'll rewrite this <s>miracle</s>
 
 ## Installation
 
@@ -28,7 +30,7 @@ All python dependencies specified in the file [requirements.txt](/requirements.t
 
     pip install -r requirements.txt
 
-## Controls
+## Documentation
 
 #### Controls & Keys
 | Key | Move |
