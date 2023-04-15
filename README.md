@@ -5,7 +5,7 @@
 <p align="center">
    <img src="https://img.shields.io/badge/Python-3.9%2B-blueviolet" alt="Python Version">
    <img src="https://img.shields.io/github/v/release/Qu1nel/2048" alt="Version">
-   <img src="https://img.shields.io/github/license/Qu1nel/2048" alt="License" />
+   <img src="https://img.shields.io/github/license/Qu1nel/2048?color=g" alt="License" />
 </p>
 
 ## About 2048
