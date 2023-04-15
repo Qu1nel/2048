@@ -8,6 +8,8 @@ import database
 from game import Game
 from logics import get_const_4_cell, get_size_font
 
+from config import APP_PATH
+
 
 class Interface(Game):
 
@@ -30,7 +32,7 @@ class Interface(Game):
         self.screen.blit(pg.font.Font(
             self.generalFont, 60).render('Game Over!', True, config.COLORS['WHITE']), (100, 290))
         pg.draw.rect(self.screen, '#8d8d8d', repeat_box, border_radius=8)
-        round_arrow = pg.image.load("images/elements/around_arrow.png")
+        round_arrow = pg.image.load(f"{APP_PATH}/images/elements/around_arrow.png")
         self.screen.blit(pg.transform.scale(round_arrow, (43, 43)), (453, 159))
         pg.display.update()
 
@@ -60,11 +62,11 @@ class Interface(Game):
         menu_box = pg.Rect(225, 532, 75, 75)
         ALL_PLAYERS = database.get_best()
 
-        backGround_with_crown = "images/BG/rating.jpg"
-        backGround_without_crown = "images/BG/rating_nothing.jpg"
+        backGround_with_crown = f"{APP_PATH}/images/BG/rating.jpg"
+        backGround_without_crown = f"{APP_PATH}/images/BG/rating_nothing.jpg"
         path_bg = backGround_with_crown if database.get_best(1)['name'] is not None else backGround_without_crown
         rating_bg = pg.image.load(path_bg)
-        menu = pg.image.load("images/elements/home.png")
+        menu = pg.image.load(f"{APP_PATH}/images/elements/home.png")
         self.screen.blit(rating_bg, (0, 0))
         self.screen.blit(pg.transform.scale(menu, (50, 50)), (236, 543))
 
@@ -129,7 +131,7 @@ class Interface(Game):
         play_box = pg.Rect(118, 283, 289, 80)
         rating_box = pg.Rect(118, 383, 289, 80)
 
-        start_bg = pg.image.load("images/BG/menu.jpg")
+        start_bg = pg.image.load(f"{APP_PATH}/images/BG/menu.jpg")
         self.screen.blit(start_bg, (0, 0))
 
         font = pg.font.Font(self.generalFont, 45)
@@ -192,10 +194,14 @@ class Interface(Game):
 
     def draw_main(self):
         """Draws the main interface"""
-        self.screen.blit(pg.transform.scale(pg.image.load("images/BG/BG.jpg"), (self.width, self.height + 2)), (0, 0))
-        self.screen.blit(pg.transform.scale(pg.image.load("images/elements/around_arrow.png"), (43, 43)), (453, 159))
-        self.screen.blit(pg.transform.scale(pg.image.load("images/elements/arrow.png"), (58, 58)), (374, 154))
-        self.screen.blit(pg.transform.scale(pg.image.load("images/elements/home.png"), (38, 38)), (314, 162))
+        self.screen.blit(pg.transform.scale(pg.image.load(
+            f"{APP_PATH}/images/BG/BG.jpg"), (self.width, self.height + 2)), (0, 0))
+        self.screen.blit(pg.transform.scale(pg.image.load(
+            f"{APP_PATH}/images/elements/around_arrow.png"), (43, 43)), (453, 159))
+        self.screen.blit(pg.transform.scale(pg.image.load(
+            f"{APP_PATH}/images/elements/arrow.png"), (58, 58)), (374, 154))
+        self.screen.blit(pg.transform.scale(pg.image.load(
+            f"{APP_PATH}/images/elements/home.png"), (38, 38)), (314, 162))
 
         self.screen.blit(
             pg.font.Font(self.generalFont, 17).render('HIGH SCORE', True, config.COLORS['GRAY']), (402, 55))

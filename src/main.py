@@ -10,6 +10,8 @@ from board import GameBoard
 from interface import Interface
 from logics import quick_copy, get_side
 
+from config import APP_PATH
+
 
 class Game2048(Interface):
 
@@ -22,8 +24,8 @@ class Game2048(Interface):
 
     def put_name(self) -> None:
         def _render(game) -> None:
-            name_bg = pg.image.load("./images/BG/input_username.jpg")
-            menu = pg.image.load("./images/elements/home.png")
+            name_bg = pg.image.load(f"{APP_PATH}/images/BG/input_username.jpg")
+            menu = pg.image.load(f"{APP_PATH}/images/elements/home.png")
             game.screen.blit(pg.font.Font(
                 game.generalFont, 120).render('2048', True, config.COLORS['WHITE']), (108, 60))
             game.screen.blit(name_bg, (0, 0))

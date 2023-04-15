@@ -1,3 +1,8 @@
+import os
+
+APP_PATH = os.path.dirname(os.path.realpath(__file__))
+print(APP_PATH)
+
 WIDTH, HEIGHT = 520, 725
 CAPTION = '2048'
 FRAMERATE = 120
@@ -8,8 +13,8 @@ SIZE_BLOCK = 112
 MARGIN = 9
 
 USERNAME = None
-GENERAL_FONT = 'vag-world-bold.ttf'  # The main font of the game
-ICON = '2048_icon.png'
+GENERAL_FONT = os.path.join(APP_PATH, 'vag-world-bold.ttf')  # The main font of the game
+ICON = os.path.join(APP_PATH, '2048_icon.png')
 
 COLORS = {
     0: "#545c8a", 2: '#e4f2fd', 4: '#badffa',
