@@ -54,4 +54,4 @@ All python dependencies specified in the file [requirements.txt](/requirements.t
 
 ## License
 
-Project Qu1nel.2048 is distributed under the [MIT license](LICENSE).
+This Project Qu1nel.2048 in distributive under the __[MIT License](./LICENSE)__, and it also uses those codes that are distributed under the __[MIT License](./LICENSE)__.
