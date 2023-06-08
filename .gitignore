@@ -1,7 +1,9 @@
 /.idea
 /venv
+/.venv
 __pycache__/
 *.py[cod]
 
 data.txt
 2048.sqlite
+
