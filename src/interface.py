@@ -3,12 +3,11 @@ from abc import abstractmethod
 
 import pygame as pg
 
-import config
-import database
-from game import Game
-from logics import get_const_4_cell, get_size_font
-
-from config import APP_PATH
+import src.config as config
+import src.database as database
+from src.config import APP_PATH
+from src.game import Game
+from src.logics import get_const_4_cell, get_size_font
 
 
 class Interface(Game):

@@ -4,13 +4,12 @@ import sys
 
 import pygame as pg
 
-import config
-import database
-from board import GameBoard
-from interface import Interface
-from logics import quick_copy, get_side
-
-from config import APP_PATH
+import src.config as config
+import src.database as database
+from src.board import GameBoard
+from src.config import APP_PATH
+from src.interface import Interface
+from src.logics import get_side, quick_copy
 
 
 class Game2048(Interface):
@@ -248,7 +247,3 @@ class Game2048(Interface):
 
 def main() -> None:
     Game2048().run()
-
-
-if __name__ == '__main__':
-    main()

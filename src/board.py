@@ -1,7 +1,7 @@
-from random import random, shuffle, randint
+from random import randint, random, shuffle
 from typing import Any, Union
 
-from logics import get_index_from_number, get_number_from_index, quick_copy
+from src.logics import get_index_from_number, get_number_from_index, quick_copy
 
 
 class GameBoard(object):
