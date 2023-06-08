@@ -8,6 +8,7 @@
    <img src="https://img.shields.io/github/license/Qu1nel/2048?color=g" alt="License" />
 </p>
 
+
 ## About 2048
 
 First project after 2.5 months of learning Python
@@ -16,9 +17,10 @@ Game 2048 written in Python, pygame module. Also used SQLite for the database of
 
 Maybe I'll rewrite this <s>miracle</s>
 
+
 ## Installation
 
-Clone the repository and run the file ***main.py***.
+Clone the repository and run the file **_main.py_**.
 Make sure that all [requirements](#requirements) are met.
 
 
@@ -30,28 +32,46 @@ All python dependencies specified in the file [requirements.txt](/requirements.t
 
     pip install -r requirements.txt
 
+
+## Getting started
+
+Run [`run.py`](./run.py) using the python interpreter
+
+### Windows
+
+    python run.py
+
+### Linux
+
+    python3 run.py
+
+
 ## Documentation
 
 #### Controls & Keys
-| Key | Move |
-| :---------------: | :---------------: |
-|  H / h | Returns to the main menu, saving game progress |
-| R / r | Resets the game to a further agreement |
+
+|  Key  |                       Move                        |
+| :---: | :-----------------------------------------------: |
+| H / h |  Returns to the main menu, saving game progress   |
+| R / r |      Resets the game to a further agreement       |
 | B / b | Returns the state of the game that was 1 turn ago |
 
 #### Other Keys
-| Key | Move |
-| :---------------: | :---------------: |
-|  Backspace | Cancels the action |
-| Escape | Leaves the game or cancels the action |
-| Enter | Confirms action |
+
+|    Key    |                 Move                  |
+| :-------: | :-----------------------------------: |
+| Backspace |          Cancels the action           |
+|  Escape   | Leaves the game or cancels the action |
+|   Enter   |            Confirms action            |
 
 <u><b>Mouse swipes are also available within the game area.</b></u>
+
 
 ## Developers
 
 - [Qu1nel](https://github.com/Qu1nel)
 
+
 ## License
 
-This Project Qu1nel.2048 in distributive under the __[MIT License](./LICENSE)__, and it also uses those codes that are distributed under the __[MIT License](./LICENSE)__.
+This Project Qu1nel.2048 in distributive under the **[MIT License](./LICENSE)**, and it also uses those codes that are distributed under the **[MIT License](./LICENSE)**.
