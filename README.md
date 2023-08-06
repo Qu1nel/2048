@@ -74,4 +74,6 @@ Run [`run.py`](./run.py) using the python interpreter
 
 ## License
 
+[MIT](./LICENSE) © [Ivan Kovach](https://github.com/Qu1nel/)
+
 This Project Qu1nel.2048 in distributive under the **[MIT License](./LICENSE)**, and it also uses those codes that are distributed under the **[MIT License](./LICENSE)**.
