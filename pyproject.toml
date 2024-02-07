@@ -44,6 +44,7 @@ exclude = [
 ignore = [
   # D (pydocstyle)
   "D100", # Docstring in public module
+  "D105", # Docstring for magic method
   "D203", # Docstring one blank line before class
   "D213", # Docstring multi-line-summary-second-line
   # UP (pyupgrade)
@@ -96,7 +97,12 @@ convention = "google"
 
 
 [tool.ruff.mccabe]
-max-complexity = 10
+max-complexity = 25
+
+[tool.ruff.pylint]
+max-branches = 20
+max-statements = 60
+max-returns = 12
 
 
 [tool.mypy]
@@ -109,11 +115,6 @@ strict_equality = true
 warn_return_any = true
 warn_unused_configs = true
 warn_redundant_casts = true
-
-
-[[tool.mypy.overrides]]
-disallow_untyped_defs = false
-strict_equality = false
 
 
 [tool.black]
