@@ -1,9 +1,17 @@
+import sys
 from pathlib import Path
 from typing import NamedTuple
 
+
+def resource_path(relative_path: Path) -> Path:
+    """Function for working paths inside an exe for python."""
+    base_path = Path(getattr(sys, "_MEIPASS", ".")).absolute()
+    return base_path.joinpath(relative_path)
+
+
 Size = NamedTuple("Size", (("width", int), ("height", int)))
 
-APP_PATH = Path(__file__).parent
+APP_PATH = resource_path(Path(__file__).parent)
 
 WIDTH, HEIGHT = 520, 725
 SIZE = Size(width=WIDTH, height=HEIGHT)
@@ -26,9 +34,9 @@ elements = "elements"
 icon_name = "icon.png"
 icon_folder_name = "icons"
 
-ICON_PATH = Path(images_source_folder_name) / Path(icon_folder_name) / Path(icon_name)
-BG_PATH = Path(images_source_folder_name) / Path(bg_images_name)
-ELEMENTS_PATH = Path(images_source_folder_name) / Path(elements)
+ICON_PATH = resource_path(Path(images_source_folder_name) / Path(icon_folder_name) / Path(icon_name))
+BG_PATH = resource_path(Path(images_source_folder_name) / Path(bg_images_name))
+ELEMENTS_PATH = resource_path(Path(images_source_folder_name) / Path(elements))
 
 GENERAL_FONT = APP_PATH / "vag-world-bold.ttf"  # The main font of the game
 

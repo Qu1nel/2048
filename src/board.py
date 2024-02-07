@@ -8,7 +8,7 @@ from src.logics import get_index_from_number, get_number_from_index, quick_copy
 class GameBoard:
     """A flex class for board."""
 
-    is_board_move: bool
+    is_board_move: bool = False
 
     def __init__(self, mas: list | None = None) -> None:
         """Init base attributes."""

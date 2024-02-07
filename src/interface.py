@@ -6,7 +6,7 @@ import pygame as pg
 
 from src import config
 from src.board import GameBoard
-from src.config import BG_PATH, ELEMENTS_PATH
+from src.config import BG_PATH, ELEMENTS_PATH, resource_path
 from src.database import get_best, insert_result
 from src.game import Game
 from src.logics import get_const_4_cell, get_size_font
@@ -27,7 +27,7 @@ class Interface(Game):
 
     def __init__(self) -> None:
         """Init base attribute."""
-        super().__init__(config.CAPTION, config.SIZE, config.ICON_PATH, config.FRAMERATE)
+        super().__init__(config.SIZE, config.FRAMERATE)
         self.blocks = config.BLOCKS
         self.size_block = config.SIZE_BLOCK
         self.margin = config.MARGIN
@@ -48,7 +48,7 @@ class Interface(Game):
             (100, 290),
         )
         pg.draw.rect(self.screen, "#8d8d8d", repeat_box, border_radius=8)
-        round_arrow = pg.image.load(ELEMENTS_PATH / Path("around_arrow.png"))
+        round_arrow = pg.image.load(resource_path(ELEMENTS_PATH / Path("around_arrow.png")))
         self.screen.blit(pg.transform.scale(round_arrow, (43, 43)), (453, 159))
         pg.display.update()
 
@@ -81,8 +81,8 @@ class Interface(Game):
         back_ground_with_crown = BG_PATH / Path("rating.jpg")
         back_ground_without_crown = BG_PATH / Path("rating_nothing.jpg")
         path_bg = back_ground_with_crown if get_best(1)["name"] is not None else back_ground_without_crown
-        rating_bg = pg.image.load(path_bg)
-        menu = pg.image.load(ELEMENTS_PATH / Path("home.png"))
+        rating_bg = pg.image.load(resource_path(path_bg))
+        menu = pg.image.load(resource_path(ELEMENTS_PATH / Path("home.png")))
         self.screen.blit(rating_bg, (0, 0))
         self.screen.blit(pg.transform.scale(menu, (50, 50)), (236, 543))
 
@@ -174,7 +174,7 @@ class Interface(Game):
         play_box = pg.Rect(118, 283, 289, 80)
         rating_box = pg.Rect(118, 383, 289, 80)
 
-        start_bg = pg.image.load(BG_PATH / Path("menu.jpg"))
+        start_bg = pg.image.load(resource_path(BG_PATH / Path("menu.jpg")))
         self.screen.blit(start_bg, (0, 0))
 
         font = pg.font.Font(self.generalFont, 45)
@@ -242,15 +242,21 @@ class Interface(Game):
     def draw_main(self) -> None:
         """Draws the main interface."""
         self.screen.blit(
-            pg.transform.scale(pg.image.load(BG_PATH / Path("BG.jpg")), (self.width, self.height + 2)),
+            pg.transform.scale(pg.image.load(resource_path(BG_PATH / Path("BG.jpg"))), (self.width, self.height + 2)),
             (0, 0),
         )
         self.screen.blit(
-            pg.transform.scale(pg.image.load(ELEMENTS_PATH / Path("around_arrow.png")), (43, 43)),
+            pg.transform.scale(pg.image.load(resource_path(ELEMENTS_PATH / Path("around_arrow.png"))), (43, 43)),
             (453, 159),
         )
-        self.screen.blit(pg.transform.scale(pg.image.load(ELEMENTS_PATH / Path("arrow.png")), (58, 58)), (374, 154))
-        self.screen.blit(pg.transform.scale(pg.image.load(ELEMENTS_PATH / Path("home.png")), (38, 38)), (314, 162))
+        self.screen.blit(
+            pg.transform.scale(pg.image.load(resource_path(ELEMENTS_PATH / Path("arrow.png"))), (58, 58)),
+            (374, 154),
+        )
+        self.screen.blit(
+            pg.transform.scale(pg.image.load(resource_path(ELEMENTS_PATH / Path("home.png"))), (38, 38)),
+            (314, 162),
+        )
 
         self.screen.blit(
             pg.font.Font(self.generalFont, 17).render("HIGH SCORE", True, config.COLORS["GRAY"]),

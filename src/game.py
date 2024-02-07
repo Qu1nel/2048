@@ -1,5 +1,4 @@
 from abc import abstractmethod
-from pathlib import Path
 
 import pygame as pg
 
@@ -34,12 +33,8 @@ class Game:
     score: int
     old_score: int
 
-    def __init__(self, caption: str, size: Size, icon: Path, framerate: int = 60) -> None:
+    def __init__(self, size: Size, framerate: int = 60) -> None:
         """Init base attribute."""
-        pg.init()
-        pg.display.set_caption(caption)
-        pg.display.set_icon(pg.image.load(icon))
-
         self.screen = pg.display.set_mode((size.width, size.height))
         self.clock = pg.time.Clock()
         self.framerate = framerate

@@ -7,7 +7,7 @@ import pygame as pg
 
 from src import config, database
 from src.board import GameBoard
-from src.config import BG_PATH, CAPTION, ELEMENTS_PATH, MIN_NAME_LENGTH
+from src.config import BG_PATH, CAPTION, ELEMENTS_PATH, MIN_NAME_LENGTH, resource_path
 from src.interface import Interface
 from src.logics import get_side, quick_copy
 
@@ -38,8 +38,8 @@ class App(Interface):
         """Drawing screen "put name"."""
 
         def _render(game: Interface) -> None:
-            name_bg = pg.image.load(BG_PATH / Path("input_username.jpg"))
-            menu = pg.image.load(ELEMENTS_PATH / Path("home.png"))
+            name_bg = pg.image.load(resource_path(BG_PATH / Path("input_username.jpg")))
+            menu = pg.image.load(resource_path(ELEMENTS_PATH / Path("home.png")))
             game.screen.blit(
                 pg.font.Font(game.generalFont, 120).render(CAPTION, True, config.COLORS["WHITE"]),
                 (108, 60),
