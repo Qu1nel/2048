@@ -28,6 +28,7 @@ update:
 
 
 .PHONY: lint-check lint lints check
+lint-check: ruff mypy pyright black  ## Complete code base check with linters and formatters
 
 
 # Alias
@@ -50,13 +51,13 @@ mypy:  # Use 'mypy' utility as linter
 	@echo -e
 	@echo -e "$(BLUE)Applying mypy..."
 	@echo -e "$(GREEN)================$(RESET)"
-lint-check: ruff mypy pyright black  ## Complete code base check with linters and formatters
 	@echo -e
 	poetry run mypy $(path)
 	@echo -e
 
 .PHONY: pyright
 pyright:  ## Use 'pyright' utility as linter
+	@echo -e
 	@echo -e "$(BLUE)Applying pyright..."
 	@echo -e "$(GREEN)===================$(RESET)"
 	@echo -e
@@ -96,6 +97,7 @@ help:  ## Show this output, i.e. help to use the commands
 
 info-%:
 	@make --dry-run --always-make $* | grep -v "info"
+
 
 print-%:
 	@$(info '$*'='$($*)')
