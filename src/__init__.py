@@ -6,7 +6,7 @@ from src.config import CAPTION, ICON_PATH, resource_path
 from src.main import App
 
 __author__ = "Qu1nel"
-__version__ = "1.0"
+__version__ = "2.0.1"
 
 pg.init()
 pg.display.set_caption(CAPTION)
