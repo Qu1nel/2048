@@ -1,4 +1,4 @@
-from src.main import main
+from src import start
 
 if __name__ == "__main__":
-    main()
+    start()

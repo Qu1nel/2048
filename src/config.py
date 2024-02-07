@@ -1,10 +1,13 @@
-import os
+from pathlib import Path
+from typing import NamedTuple
 
-APP_PATH = os.path.dirname(os.path.realpath(__file__))
-print(APP_PATH)
+Size = NamedTuple("Size", (("width", int), ("height", int)))
+
+APP_PATH = Path(__file__).parent
 
 WIDTH, HEIGHT = 520, 725
-CAPTION = '2048'
+SIZE = Size(width=WIDTH, height=HEIGHT)
+CAPTION = "2048"
 FRAMERATE = 120
 
 # game area settings
@@ -13,16 +16,44 @@ SIZE_BLOCK = 112
 MARGIN = 9
 
 USERNAME = None
-GENERAL_FONT = os.path.join(APP_PATH, 'vag-world-bold.ttf')  # The main font of the game
-ICON = os.path.join(APP_PATH, '2048_icon.png')
+MIN_NAME_LENGTH = 3
+
+images_source_folder_name = "images"
+
+bg_images_name = "BG"
+elements = "elements"
+
+icon_name = "icon.png"
+icon_folder_name = "icons"
+
+ICON_PATH = Path(images_source_folder_name) / Path(icon_folder_name) / Path(icon_name)
+BG_PATH = Path(images_source_folder_name) / Path(bg_images_name)
+ELEMENTS_PATH = Path(images_source_folder_name) / Path(elements)
+
+GENERAL_FONT = APP_PATH / "vag-world-bold.ttf"  # The main font of the game
 
 COLORS = {
-    0: "#545c8a", 2: '#e4f2fd', 4: '#badffa',
-    8: '#6cb8f4', 16: '#319eef', 32: '#2a79d8',
-    64: '#275ce6', 128: '#7420e8', 256: '#9025c0',
-    512: '#b32885', 1024: '#990066', 2048: '#bb165b',
-    4096: '#1A0553', 8192: '#02334D', 16384: '#004949',
-    32768: '#1F142F', 65536: '#000000', 131072: '#000000',
-    262144: '#000000', 524288: '#000000',
-    'WTF?!': '#ffffff', 'WHITE': '#ebeeff', 'GRAY': '#aebad0'
+    0: "#545c8a",
+    2: "#e4f2fd",
+    4: "#badffa",
+    8: "#6cb8f4",
+    16: "#319eef",
+    32: "#2a79d8",
+    64: "#275ce6",
+    128: "#7420e8",
+    256: "#9025c0",
+    512: "#b32885",
+    1024: "#990066",
+    2048: "#bb165b",
+    4096: "#1A0553",
+    8192: "#02334D",
+    16384: "#004949",
+    32768: "#1F142F",
+    65536: "#000000",
+    131072: "#000000",
+    262144: "#000000",
+    524288: "#000000",
+    "WTF?!": "#ffffff",
+    "WHITE": "#ebeeff",
+    "GRAY": "#aebad0",
 }
