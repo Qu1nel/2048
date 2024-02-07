@@ -9,6 +9,12 @@ readme = "README.md"
 python = "^3.11"
 pygame = "^2.5.2"
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.2.1"
+mypy = "^1.8.0"
+pyright = "^1.1.350"
+black = "^24.1.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
