@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import pygame as pg
-
-from src.board import GameBoard
 
 
 @dataclass(slots=True)
@@ -29,7 +28,7 @@ class Point:  # noqa: D101
         return "DOWN"
 
 
-def quick_copy(data: GameBoard | None) -> list:
+def quick_copy(data: Any) -> list:
     """Return a copy of game board."""
     mas = [] if data is None else data.get_mas
     return [list(row) for row in mas]

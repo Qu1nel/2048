@@ -2,7 +2,6 @@ from collections.abc import Iterator
 from random import randint, random, shuffle
 from typing import Any
 
-from src.interface import Interface
 from src.logics import get_index_from_number, get_number_from_index, quick_copy
 
 
@@ -40,7 +39,7 @@ class GameBoard:
     def __iter__(self) -> Iterator:
         return iter(self.__mas)
 
-    def move_left(self, game: Interface) -> None:
+    def move_left(self, game: Any) -> None:
         """Moves the board to the left."""
         origin = quick_copy(self)
         game.delta = 0
@@ -61,7 +60,7 @@ class GameBoard:
                     self[x].append(0)
         self.is_board_move = origin != self.get_mas
 
-    def move_right(self, game: Interface) -> None:
+    def move_right(self, game: Any) -> None:
         """Moves the board to the right."""
         origin = quick_copy(self)
         game.delta = 0
@@ -82,7 +81,7 @@ class GameBoard:
                     self[x].insert(0, 0)
         self.is_board_move = origin != self.get_mas
 
-    def move_up(self, game: Interface) -> None:
+    def move_up(self, game: Any) -> None:
         """Moves the board to the up."""
         origin = quick_copy(self)
         game.delta = 0
@@ -102,7 +101,7 @@ class GameBoard:
                 self[x][y] = column[x]
         self.is_board_move = origin != self.get_mas
 
-    def move_down(self, game: Interface) -> None:
+    def move_down(self, game: Any) -> None:
         """Moves the board to the down."""
         origin = quick_copy(self)
         game.delta = 0

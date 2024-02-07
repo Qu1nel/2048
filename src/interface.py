@@ -44,7 +44,7 @@ class Interface(Game):
         self.screen.blit(blur, (0, 0))
 
         self.screen.blit(
-            pg.font.Font(self.generalFont, 60).render("Game Over!", antialias=True, color=config.COLORS["WHITE"]),
+            pg.font.Font(self.generalFont, 60).render("Game Over!", True, config.COLORS["WHITE"]),
             (100, 290),
         )
         pg.draw.rect(self.screen, "#8d8d8d", repeat_box, border_radius=8)
@@ -87,45 +87,45 @@ class Interface(Game):
         self.screen.blit(pg.transform.scale(menu, (50, 50)), (236, 543))
 
         self.screen.blit(
-            pg.font.Font(self.generalFont, 120).render("Rating", antialias=True, color=config.COLORS["WHITE"]),
+            pg.font.Font(self.generalFont, 120).render("Rating", True, config.COLORS["WHITE"]),
             (86, -50),
         )
 
         for idx, player in all_players.items():
             if player["name"] is None:
                 self.screen.blit(
-                    pg.font.Font(self.generalFont, 45).render("Nothing", antialias=True, color=config.COLORS["WHITE"]),
+                    pg.font.Font(self.generalFont, 45).render("Nothing", True, config.COLORS["WHITE"]),
                     (180, 115 + 100 * idx),
                 )
             else:
                 name = pg.font.Font(self.generalFont, 40).render(
                     player["name"] + ":",
-                    antialias=True,
-                    color=config.COLORS["WHITE"],
+                    True,
+                    config.COLORS["WHITE"],
                 )
                 if name.get_width() > 154:  # noqa: PLR2004
                     s = player["name"] + ":"
                     self.screen.blit(
-                        pg.font.Font(self.generalFont, 28).render(s, antialias=True, color=config.COLORS["WHITE"]),
+                        pg.font.Font(self.generalFont, 28).render(s, True, config.COLORS["WHITE"]),
                         (117, 135 + 100 * idx),
                     )
                     size_font = 35
                     score_txt = pg.font.Font(self.generalFont, size_font).render(
                         str(player["score"]),
-                        antialias=True,
-                        color=config.COLORS["WHITE"],
+                        True,
+                        config.COLORS["WHITE"],
                     )
                     while 289 - name.get_width() + 20 + score_txt.get_width() - 117 > 309:  # noqa: PLR2004
                         score_txt = pg.font.Font(self.generalFont, size_font).render(
                             str(player["score"]),
-                            antialias=True,
-                            color=config.COLORS["WHITE"],
+                            True,
+                            config.COLORS["WHITE"],
                         )
                         size_font -= 2
                     y = 128 if size_font == 35 else 133  # noqa: PLR2004
                     x = (
                         pg.font.Font(self.generalFont, 28)
-                        .render(player["name"] + ":", antialias=True, color=config.COLORS["WHITE"])
+                        .render(player["name"] + ":", True, config.COLORS["WHITE"])
                         .get_width()
                         + 127
                     )
@@ -135,14 +135,14 @@ class Interface(Game):
                     size_font = 35
                     score_txt = pg.font.Font(self.generalFont, size_font).render(
                         str(player["score"]),
-                        antialias=True,
-                        color=config.COLORS["WHITE"],
+                        True,
+                        config.COLORS["WHITE"],
                     )
                     while 289 - name.get_width() + 20 + score_txt.get_width() - 117 > 309:  # noqa: PLR2004
                         score_txt = pg.font.Font(self.generalFont, size_font).render(
                             str(player["score"]),
-                            antialias=True,
-                            color=config.COLORS["WHITE"],
+                            True,
+                            config.COLORS["WHITE"],
                         )
                         size_font -= 2
                     y = 128 if size_font == 35 else 133  # noqa: PLR2004
@@ -179,11 +179,11 @@ class Interface(Game):
 
         font = pg.font.Font(self.generalFont, 45)
         self.screen.blit(
-            pg.font.Font(self.generalFont, 120).render("2048", antialias=True, color=config.COLORS["WHITE"]),
+            pg.font.Font(self.generalFont, 120).render("2048", True, config.COLORS["WHITE"]),
             (108, 60),
         )
-        self.screen.blit(font.render("PLAY", antialias=True, color=config.COLORS["WHITE"]), (210, 270))
-        self.screen.blit(font.render("RATING", antialias=True, color=config.COLORS["WHITE"]), (186, 370))
+        self.screen.blit(font.render("PLAY", True, config.COLORS["WHITE"]), (210, 270))
+        self.screen.blit(font.render("RATING", True, config.COLORS["WHITE"]), (186, 370))
 
         pg.display.update()
 
@@ -219,10 +219,10 @@ class Interface(Game):
             self.screen.blit(blur, (0, 0))
 
             font_h1 = pg.font.Font(self.generalFont, 90)
-            text_h1 = font_h1.render("You Win!", antialias=True, color=config.COLORS["WHITE"])
+            text_h1 = font_h1.render("You Win!", True, config.COLORS["WHITE"])
             self.screen.blit(text_h1, (self.width // 2 - text_h1.get_size()[0] // 2, 330))
             font_h3 = pg.font.Font(self.generalFont, 35)
-            text_h3 = font_h3.render("Click any button to Continue", antialias=True, color=config.COLORS["WHITE"])
+            text_h3 = font_h3.render("Click any button to Continue", True, config.COLORS["WHITE"])
             self.screen.blit(text_h3, (self.width // 2 - text_h3.get_size()[0] // 2, 455))
 
             pg.display.update()
@@ -253,15 +253,15 @@ class Interface(Game):
         self.screen.blit(pg.transform.scale(pg.image.load(ELEMENTS_PATH / Path("home.png")), (38, 38)), (314, 162))
 
         self.screen.blit(
-            pg.font.Font(self.generalFont, 17).render("HIGH SCORE", antialias=True, color=config.COLORS["GRAY"]),
+            pg.font.Font(self.generalFont, 17).render("HIGH SCORE", True, config.COLORS["GRAY"]),
             (402, 55),
         )
         self.screen.blit(
-            pg.font.Font(self.generalFont, 18).render("SCORE", antialias=True, color=config.COLORS["GRAY"]),
+            pg.font.Font(self.generalFont, 18).render("SCORE", True, config.COLORS["GRAY"]),
             (300, 55),
         )
         self.screen.blit(
-            pg.font.Font(self.generalFont, 86).render("2048", antialias=True, color=config.COLORS["WHITE"]),
+            pg.font.Font(self.generalFont, 86).render("2048", True, config.COLORS["WHITE"]),
             (30, 2),
         )
 
@@ -273,8 +273,8 @@ class Interface(Game):
         self.screen.blit(
             pg.font.Font(self.generalFont, size_score).render(
                 f"{self.score}",
-                antialias=True,
-                color=config.COLORS["WHITE"],
+                True,
+                config.COLORS["WHITE"],
             ),
             (325 - correct, 77),
         )
@@ -283,8 +283,8 @@ class Interface(Game):
         self.screen.blit(
             pg.font.Font(self.generalFont, size_high_score).render(
                 f"{high_score}",
-                antialias=True,
-                color=config.COLORS["WHITE"],
+                True,
+                config.COLORS["WHITE"],
             ),
             (447 - correct, 77),
         )
@@ -294,8 +294,8 @@ class Interface(Game):
             self.screen.blit(
                 pg.font.Font(self.generalFont, 34).render(
                     f"+{self.delta}",
-                    antialias=True,
-                    color=config.COLORS["WHITE"],
+                    True,
+                    config.COLORS["WHITE"],
                 ),
                 (115 - correct, 160),
             )
@@ -305,8 +305,8 @@ class Interface(Game):
                 value, font = get_const_4_cell(self.board[row][column], self.generalFont)
                 text = font.render(
                     f"{value}",
-                    antialias=True,
-                    color=("#545E66" if value in (2, 4) else "#ebeeff"),
+                    True,
+                    ("#545E66" if value in (2, 4) else "#ebeeff"),
                 )  # GRAY or WHITE
                 w = column * self.size_block + (column - 1) * self.margin + 30
                 h = row * self.size_block + (row - 1) * self.margin + 240

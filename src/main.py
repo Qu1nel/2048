@@ -41,13 +41,13 @@ class App(Interface):
             name_bg = pg.image.load(BG_PATH / Path("input_username.jpg"))
             menu = pg.image.load(ELEMENTS_PATH / Path("home.png"))
             game.screen.blit(
-                pg.font.Font(game.generalFont, 120).render(CAPTION, antialias=True, color=config.COLORS["WHITE"]),
+                pg.font.Font(game.generalFont, 120).render(CAPTION, True, config.COLORS["WHITE"]),
                 (108, 60),
             )
             game.screen.blit(name_bg, (0, 0))
             game.screen.blit(pg.transform.scale(menu, [50, 50]), (236, 494))
             game.screen.blit(
-                pg.font.Font(game.generalFont, 45).render("OK", antialias=True, color=config.COLORS["WHITE"]),
+                pg.font.Font(game.generalFont, 45).render("OK", True, config.COLORS["WHITE"]),
                 (229, 371),
             )
 
@@ -91,15 +91,12 @@ class App(Interface):
                                 input_name = True
                         elif event.key == pg.K_BACKSPACE:
                             name = name[:-1]
-                        elif (
-                            font_input.render(name, antialias=True, color=config.COLORS["WHITE"]).get_width()
-                            < 261  # noqa: PLR2004
-                        ):
+                        elif font_input.render(name, True, config.COLORS["WHITE"]).get_width() < 261:  # noqa: PLR2004
                             name += event.unicode
             _render(self)
             if name == "" and color == inactive_colour:
-                self.screen.blit(font_input.render("Username", antialias=True, color=config.COLORS["GRAY"]), (155, 267))
-            txt = font_input.render(name, antialias=True, color=config.COLORS["WHITE"])
+                self.screen.blit(font_input.render("Username", True, config.COLORS["GRAY"]), (155, 267))
+            txt = font_input.render(name, True, config.COLORS["WHITE"])
             pg.draw.rect(self.screen, color, input_box, 1, border_radius=15)
             self.screen.blit(txt, (input_box.w - txt.get_width() // 2 - 26, 267))
             pg.display.update()
@@ -107,7 +104,9 @@ class App(Interface):
     def load_game(self) -> None:
         """Loads a last game from save."""
         path = Path.cwd()
+
         if "save.txt" in os.listdir(path):
+
             with open("save.txt") as file:
                 data = json.load(file)
                 self.board = GameBoard(data["board"])
@@ -116,6 +115,7 @@ class App(Interface):
             full_path = path / Path("save.txt")
             Path(full_path).unlink()
         else:
+
             super().__init__()
             self.board = GameBoard()
             self.move_mouse = False
@@ -146,21 +146,21 @@ class App(Interface):
         self.screen.blit(blur, (0, 0))
 
         self.screen.blit(
-            pg.font.Font(self.generalFont, 53).render("Reset game?", antialias=True, color=config.COLORS["WHITE"]),
+            pg.font.Font(self.generalFont, 53).render("Reset game?", True, config.COLORS["WHITE"]),
             (60, 200),
         )
         font_h3 = pg.font.Font(self.generalFont, 32)
         self.screen.blit(
-            font_h3.render("Are you sure you wish to", antialias=True, color=config.COLORS["WHITE"]),
+            font_h3.render("Are you sure you wish to", True, config.COLORS["WHITE"]),
             (60, 300),
         )
-        self.screen.blit(font_h3.render("reset the game?", antialias=True, color=config.COLORS["WHITE"]), (60, 340))
+        self.screen.blit(font_h3.render("reset the game?", True, config.COLORS["WHITE"]), (60, 340))
 
         pg.draw.rect(self.screen, (110, 110, 110), cancel_box, border_radius=12)
-        self.screen.blit(font_h3.render("Cancel", antialias=True, color=config.COLORS["WHITE"]), (174, 413))
+        self.screen.blit(font_h3.render("Cancel", True, config.COLORS["WHITE"]), (174, 413))
 
         pg.draw.rect(self.screen, (110, 110, 110), repeat_box, border_radius=12)
-        self.screen.blit(font_h3.render("Reset", antialias=True, color=config.COLORS["WHITE"]), (341, 413))
+        self.screen.blit(font_h3.render("Reset", True, config.COLORS["WHITE"]), (341, 413))
         pg.display.update()
 
         make_decision = False
@@ -276,5 +276,6 @@ class App(Interface):
                     self.clock.tick(self.framerate)
                 else:
                     self.draw_game_over()
-        except Exception:  # noqa: BLE001
+        except Exception as exc:
             self.save_game()
+            raise exc from None

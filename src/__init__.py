@@ -1,4 +1,5 @@
 """Game 2048 written in Python, pygame module. First pet-project. cringe..."""
+
 import sys
 from pathlib import Path
 
